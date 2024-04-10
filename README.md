@@ -1,4 +1,4 @@
-## Sistema de Búsqueda de Archivos de Tesoros
+## ServerLa-Aeneta
 # Descripción del Proyecto
 El Sistema de Búsqueda de Archivos de Tesoros es una aplicación diseñada para ayudar a los usuarios a encontrar archivos específicos dentro de grandes conjuntos de datos.7
 El proyecto se inspira en la idea de la búsqueda de tesoros, donde los usuarios buscan "tesoros" que son los archivos que necesitan entre una gran cantidad de "tesoros falsos", que son archivos irrelevantes.
@@ -28,5 +28,5 @@ Librerías: Utilizaremos librerías como SQLAlchemy, y React Router, React DOM, 
 # Equipo
 Líder del Proyecto: Reyna Melara Abarca
 Desarrolladores: Alexis, Angel,Armando, Rafael, Eduardo
-Diseñador UX/UI: Alexis Aguilar
+Diseñador UX/UI: Alexis
 Tester: Alexis, Angel,Armando, Rafael, Eduardo
