@@ -26,4 +26,8 @@ def show_document(id:int , ruta:str):
 
 @app.post("/document")
 def insert_document(doc:Document):
+<<<<<<< Updated upstream
     return {"msg": f"Document {doc.title} has been inserted"}
+=======
+    return {"msg": f"Document {doc.title} has been inserted"}
+>>>>>>> Stashed changes
