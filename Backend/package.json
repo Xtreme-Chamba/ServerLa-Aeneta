@@ -2,7 +2,7 @@
   "name": "server",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "waos",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
