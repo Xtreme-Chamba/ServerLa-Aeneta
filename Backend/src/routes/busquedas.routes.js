@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postBusquedaTituloSim, postBusquedaAutorSim } from "../controllers/busquedas.controller.js";
+import { postBusquedaTituloSimple, postBusquedaAutorSimple, postBusquedaAnioPuntualSimple, postBusquedaAnioRangoSimple } from "../controllers/busquedas.controller.js";
 
 const router = Router();
 
@@ -10,10 +10,12 @@ const router = Router();
     /busqueda/año/puntual
     /busqueda/año/rango
 */
-router.post("/busqueda/titulo", postBusquedaTituloSim);
+router.post("/busqueda/titulo", postBusquedaTituloSimple);
 
-router.post("/busqueda/autor", postBusquedaTituloSim);
+router.post("/busqueda/autor", postBusquedaAutorSimple);
 
+router.post("/busqueda/anio/simple", postBusquedaAnioPuntualSimple);
 
+router.post("/busqueda/anio/rango", postBusquedaAnioRangoSimple);
 
 export default router;
