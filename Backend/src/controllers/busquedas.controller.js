@@ -7,3 +7,12 @@ export const postBusquedaTituloSim = async (req, res) => {
   ]);
   res.json(result[0][0]);
 };
+
+export const postBusquedaAutorSim = async (req, res) => {
+    const { autor } = req.body;
+    const result = await pool.query("call busqueda_autor_sencilla(?)", [
+      autor,
+    ]);
+    res.json(result[0][0]);
+  };
+  

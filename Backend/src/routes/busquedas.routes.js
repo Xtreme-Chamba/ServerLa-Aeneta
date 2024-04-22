@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postBusquedaTituloSim } from "../controllers/busquedas.controller.js";
+import { postBusquedaTituloSim, postBusquedaAutorSim } from "../controllers/busquedas.controller.js";
 
 const router = Router();
 
@@ -10,6 +10,10 @@ const router = Router();
     /busqueda/año/puntual
     /busqueda/año/rango
 */
-router.get("/busqueda/titulo", postBusquedaTituloSim);
+router.post("/busqueda/titulo", postBusquedaTituloSim);
+
+router.post("/busqueda/autor", postBusquedaTituloSim);
+
+
 
 export default router;
