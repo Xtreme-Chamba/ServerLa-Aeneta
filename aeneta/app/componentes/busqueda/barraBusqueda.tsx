@@ -35,7 +35,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         params.delete('termino');
       }
       replace(`${pathname}?${params.toString()}`);
-    }, 300);
+    }, 400);
   
   return (
     <div className="relative flex flex-1 flex-shrink-0">
