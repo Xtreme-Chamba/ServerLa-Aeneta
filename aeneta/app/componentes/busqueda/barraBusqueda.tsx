@@ -35,27 +35,24 @@ export default function Search({ placeholder }: { placeholder: string }) {
         params.delete('termino');
       }
       replace(`${pathname}?${params.toString()}`);
-    }, 400);
+    }, 200);
   
   return (
-    <div className="relative flex flex-1 flex-shrink-0">
-      <label htmlFor="busqueda" className="sr-only">
-        Busqueda
-      </label>
+    <div className="flex">
       <select 
         name='campo'
-        className='dark:bg-gray-500 dark:text-gray-100'
+        className='rounded-lg border-gray-300 mr-2 text-md w-fit'
         onChange={(e) => {
           handleChange(e.target.value);
         }} >
-        <option value="campo_no_asignado">Campo de busqueda</option>
+        <option  value="campo_no_asignado">Campo de busqueda</option>
         <option value="titulo">Titulo</option>
         <option value="autor">Autor</option>
         <option value="anio">Año</option>
         <option value="palabras_clave">Palabras clave</option>
       </select>
       <input
-        className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500 bg-gray-100 dark:bg-gray-500 dark:text-white"
+        className="w-full rounded-md border border-gray-200 py-[9px] pl-2 text-md placeholder:text-gray-500 bg-gray-100 "
         placeholder={placeholder}
         onChange={(e) => {
           handleSearch(e.target.value);
@@ -63,7 +60,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
         name="busqueda"
         defaultValue={searchParams.get('termino')?.toString()}
       />
-      <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 dark:text-gray-100 " />
+      
     </div>
   );
 }
