@@ -9,13 +9,14 @@ export default async function Table({
   termino,
   campo,
   currentPage,
+  NUMERO_RESULTADOS
 }: {
   termino: string;
   campo: string;
   currentPage: number;
+  NUMERO_RESULTADOS: number;
 }) {
 
-  const NUMERO_RESULTADOS = 20;
   const [documentos, setDocumentos] = useState<any[]>([]);
   const [cuerpoPeticion, setPeticion] = useState({
     terminoBusqueda: termino,

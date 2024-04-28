@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `aeneta`;
 CREATE DATABASE  IF NOT EXISTS `aeneta` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `aeneta`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
@@ -287,7 +288,7 @@ CREATE TABLE `documento` (
 
 LOCK TABLES `documento` WRITE;
 /*!40000 ALTER TABLE `documento` DISABLE KEYS */;
-INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '\0','/waos/');
+INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/');
 /*!40000 ALTER TABLE `documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -401,7 +402,7 @@ CREATE TABLE `revision_documento` (
   PRIMARY KEY (`id_revision`),
   KEY `fk_revision_documento_idx` (`id_documento`),
   CONSTRAINT `fk_revision_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -410,7 +411,7 @@ CREATE TABLE `revision_documento` (
 
 LOCK TABLES `revision_documento` WRITE;
 /*!40000 ALTER TABLE `revision_documento` DISABLE KEYS */;
-INSERT INTO `revision_documento` VALUES (1,1,'Perfecto',_binary ''),(2,2,'Esta horrible',_binary '\0');
+INSERT INTO `revision_documento` VALUES (1,1,'Perfecto',_binary ''),(2,2,'Esta horrible',_binary '\0'),(3,3,'ta buenardo',_binary '');
 /*!40000 ALTER TABLE `revision_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -448,6 +449,26 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'aeneta'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_anio_puntual_pagina_sencilla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_anio_puntual_pagina_sencilla`( anio_busqueda INT )
+BEGIN
+	SELECT COUNT(*) as total FROM aeneta.metadatos_cortados_documento
+	where anio = anio_busqueda and revisado = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `busqueda_anio_puntual_sencilla` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -492,6 +513,26 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_autor_pagina_sencilla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_autor_pagina_sencilla`( cadena_busqueda text )
+BEGIN
+	SELECT count(*) as total FROM aeneta.metadatos_cortados_documento
+	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `busqueda_autor_sencilla` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -508,6 +549,69 @@ BEGIN
 	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1
     LIMIT cantidad_resultados
     OFFSET salto;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_palabras_clave_pagina_sencilla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_palabras_clave_pagina_sencilla`( cadena_busqueda text)
+BEGIN
+	SELECT COUNT(*) FROM aeneta.metadatos_cortados_documento
+	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_palabras_clave_sencilla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_palabras_clave_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
+BEGIN
+	SELECT * FROM aeneta.metadatos_cortados_documento
+	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1
+    LIMIT cantidad_resultados
+    OFFSET salto;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_titulo_pagina_sencilla` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_titulo_pagina_sencilla`( cadena_busqueda text)
+BEGIN
+	SELECT COUNT(*) as total FROM aeneta.metadatos_cortados_documento
+	where INSTR(titulo, cadena_busqueda) > 0 and revisado = 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -713,4 +817,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-23 22:44:29
+-- Dump completed on 2024-04-27 19:37:49

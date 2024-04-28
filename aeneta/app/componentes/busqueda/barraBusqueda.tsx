@@ -45,11 +45,11 @@ export default function Search({ placeholder }: { placeholder: string }) {
         onChange={(e) => {
           handleChange(e.target.value);
         }} >
-        <option  value="campo_no_asignado">Campo de busqueda</option>
+        <option value="campo_no_asignado">Campo de busqueda</option>
         <option value="titulo">Titulo</option>
         <option value="autor">Autor</option>
         <option value="anio">Año</option>
-        <option value="palabras_clave">Palabras clave</option>
+        <option value="palabrasClave">Palabras clave</option>
       </select>
       <input
         className="w-full rounded-md border border-gray-200 py-[9px] pl-2 text-md placeholder:text-gray-500 bg-gray-100 "
