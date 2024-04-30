@@ -18,7 +18,7 @@ const config: Config = {
     colors: {
       "texto":"#200610",
       "fondo": "#FEFAFB",
-      "primario": "D9275A",
+      "primario": "#D9275A",
       "secundario": "#EA9C85",
       "resaltar": "#E39361"
     }

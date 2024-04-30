@@ -39,41 +39,37 @@ export default function Page({ params }: { params: { id: string } }) {
 
     return (
     <main>
-        <div className='w-full bg-primario text-center p-2'>
+        <div className='w-full text-center p-2 bg-primario'>
             <h1 className='font-bold text-xl'>Metadatos del documento</h1>
         </div>
       {documento.map((documento : {id: number, Titulo : string, Palabras_clave : string, Resumen : string, anio: number, url: string, tipo : string, unidad_academica : string, Nombres: string, Apellidos: string, revisado: Buffer}) => (
-        <div className='m-auto w-fit border rounded align-middle' key = {documento.id} >
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right">Titulo : </div>
-                <div className='px-2 w-full bg-secundario font-semibold'>{documento.Titulo}</div>
+        <div className='mx-auto w-fit border rounded flex flex-col p-2' key = {documento.id} >
+            <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
+            <div className='mt-3 my-1 flex px-2 items-center'>
+                <h3 className="font-bold text-xl">Palabras clave : </h3>
+                <div className='font-semibold'>{documento.Palabras_clave}</div>
             </div>
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right bg-secundario">Palabras clave : </div>
-                <div className='px-2 w-full '>{documento.Palabras_clave}</div>
+            <div className='mt-3 my-1 flex px-2 items-center'>
+                <div className="font-bold text-xl">Unidad academica : </div>
+                <div className='font-semibold'>{documento.unidad_academica}</div>
             </div>
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right">Unidad academica : </div>
-                <div className='px-2 w-full bg-secundario'>{documento.unidad_academica}</div>
-            </div>
-
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right bg-secundario">Autor : </div>
-                <div className='px-2 w-full '>{documento.Nombres} {documento.Apellidos}</div>
+            <div className='mt-3 my-1 flex px-2 items-center'>
+                <div className="font-bold text-xl">Autor : </div>
+                <div className='font-semibold'>{documento.Nombres} {documento.Apellidos}</div>
             </div>
 
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right">Tipo de documento : </div>
-                <div className='px-2 w-full bg-secundario'>{documento.tipo}</div>
+            <div className='mt-3 my-1 flex px-2 items-center'>
+                <div className="font-bold text-xl">Tipo de documento : </div>
+                <div className='font-semibold'>{documento.tipo}</div>
             </div>
 
-            <div className=' mt-3 my-1 flex align-items-center'>
-                <div className="px-2 w-full text-right bg-secundario">Resumen : </div>
-                <div className='px-2 w-full '>{documento.Resumen}</div>
+            <div className='mt-3 my-1 flex px-2 items-center'>
+                <div className="font-bold text-xl">Resumen : </div>
+                <div className='font-semibold'>{documento.Resumen}</div>
             </div>
-            <div className='border w-fit my-1 p-2 rounded text-center m-auto'>
+            <button className='w-fit p-2 bg-primario rounded-md self-center'>
                 Boton del PDF
-            </div>
+            </button>
         </div>
 
       ))}
