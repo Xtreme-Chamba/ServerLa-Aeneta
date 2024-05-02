@@ -1,24 +1,25 @@
 import bcrypt from "bcrypt";
-import { pool } from "../db.js";
+import { pool } from "../dbProvider.js";
+import { getAllUsers, createUser } from "../database/User.js"
 
-export const postUser = async (req, res) => {
-  const { email, password, username } = req.body;
+export const getUsers = async (req, res) => {
+  getAllUsers().then( allUsers => {
+    res.send({status: "OK", data: allUsers})
+  }).catch(error => {
+    res.send({status: "ERROR", data: error})
+  })  
+}
 
-  try {
-    // Password hashing
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Save user info
-    const result = await pool.query(
-      "INSERT INTO Users (email, password, username) VALUES (?, ?, ?)",
-      [email, hashedPassword, username]
-    );
-
-    res.json(result[0].affectedRows);
-  } catch (error) {
+export const registerUser = async (req, res) => {
+  const { email, password, name, surname, type } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+  
+  createUser(name, surname, email, hashedPassword, type).then( result => {
+    res.json({status: "OK",  result});
+  }).catch( error => {
     console.error("Error al crear el usuario:", error);
-    res.status(500).json({ error: "Server internal Error" });
-  }
+    res.status(500).json({ status: "ERROR", error: "Server internal Error" });
+  });
 };
 
 export const logUser = async (req, res) => {
