@@ -1,13 +1,30 @@
 import bcrypt from "bcrypt";
 import { pool } from "../dbProvider.js";
-import { getAllUsers, createUser } from "../database/User.js"
+import { getAllUsers, createUser } from "../models/user.queries.js"
+import User from "../models/user.model.js"
+import UserType from "../models/user-type.model.js";
 
 export const getUsers = async (req, res) => {
-  getAllUsers().then( allUsers => {
-    res.send({status: "OK", data: allUsers})
+  User.findAll({
+    include: [{
+      model: UserType,
+      as: 'tipo_usuario',
+      attributes: ['id_catalogo', 'tipo_usuario']
+    }],
+    attributes: {
+      exclude: ['password', 'id_tipo_usuario']
+    }
+  }).then( usersList => {
+    
+    console.log(usersList)
+    res.send({status: "OK", data: usersList})
+  
   }).catch(error => {
-    res.send({status: "ERROR", data: error})
-  })  
+
+    console.error(error);
+    res.status(500).send({status: "ERROR", error: "Ocurrio un error inesperado"})
+    
+  });
 }
 
 export const registerUser = async (req, res) => {
