@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/sequelizeInstance.js";
 
-const UserType = sequelize.define('userType', {
+const UserType = sequelize.define('UserType', {
     id_catalogo: {
         type: DataTypes.INTEGER,
         primaryKey: true

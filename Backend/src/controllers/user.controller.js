@@ -4,7 +4,8 @@ import User from "../models/user.model.js"
 import UserType from "../models/user-type.model.js";
 
 export const getUsers = async (req, res) => {
-  User.findAll({
+  User.findAll(
+  {
     include: [{
       model: UserType,
       as: 'tipo_usuario',
@@ -49,12 +50,15 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({include: [{
-      model: UserType,
-      as: 'tipo_usuario',
-      attributes: ['id_catalogo', 'tipo_usuario']
-    }], 
-    where: {email}});
+    const user = await User.findOne(
+    {
+      include: [{
+        model: UserType,
+        as: 'tipo_usuario',
+        attributes: ['id_catalogo', 'tipo_usuario']
+      }], 
+      where: { email }
+    });
 
     if (!user) {
       return res.send({ status: "ERROR", error: "User not found" });

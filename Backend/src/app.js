@@ -5,6 +5,7 @@ import authRoutes from "./routes/auth.routes.js";
 import inventoryRoutes from "./routes/inventory.routes.js";
 import rutasBusqueda from "./routes/busquedas.routes.js"
 import userRoutes from "./routes/user.routes.js"
+import documentsRoutes from "./routes/document.routes.js";
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(indexRoutes);
 //user routes
 app.use(authRoutes);
 app.use("/users", userRoutes);
+app.use("/documents", documentsRoutes);
 
 app.use(inventoryRoutes);
 app.use(rutasBusqueda);
