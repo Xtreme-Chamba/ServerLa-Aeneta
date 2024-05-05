@@ -14,21 +14,9 @@ app.use(express.urlencoded({extended:true}));
 app.use(indexRoutes);
 //user routes
 app.use(authRoutes);
-app.use("/users", userRoutes)
+app.use("/users", userRoutes);
 
 app.use(inventoryRoutes);
 app.use(rutasBusqueda);
 
 export default app;
-
-/* {
-    "email": "alexis@gmail.com",
-    "password": "contra123",
-    "username": "addactech"
- }
-
- {
-    "email": "alexis@gmail.com",
-    "password": "contra123"
- } 
- */
