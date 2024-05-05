@@ -22,15 +22,3 @@ app.use(rutasBusqueda);
 app.use(rutasDocumentos);
 
 export default app;
-
-/* {
-    "email": "alexis@gmail.com",
-    "password": "contra123",
-    "username": "addactech"
- }
-
- {
-    "email": "alexis@gmail.com",
-    "password": "contra123"
- } 
- */

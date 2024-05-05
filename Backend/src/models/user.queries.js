@@ -1,4 +1,4 @@
-import { pool } from "../dbProvider.js"
+import { pool } from "../config/dbInstance.js"
 
 export const getAllUsers = async () => {
     const [data, dataTypes] = await pool.query("SELECT * FROM usuario");

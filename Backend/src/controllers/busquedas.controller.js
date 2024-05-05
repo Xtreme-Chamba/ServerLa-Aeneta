@@ -1,4 +1,4 @@
-import { pool } from "../dbProvider.js";
+import { pool } from "../config/dbInstance.js";
 
 //le pide al cuerpo de la petición un campo titulo, que es el que se manda al call para obtener el resultado
 export const postBusquedaTituloSimple = async (req, res) => {
