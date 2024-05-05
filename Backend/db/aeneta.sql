@@ -1,9 +1,9 @@
-DROP DATABASE IF EXISTS `aeneta`;
+DROP SCHEMA IF EXISTS `aeneta`;
 CREATE DATABASE  IF NOT EXISTS `aeneta` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `aeneta`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: aeneta
+-- Host: 127.0.0.1    Database: aeneta
 -- ------------------------------------------------------
 -- Server version	8.0.30
 
@@ -34,7 +34,7 @@ CREATE TABLE `autores_documento` (
   KEY `fk_usuario_autor_idx` (`id_autor`),
   CONSTRAINT `fk_documento_autor` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `autores_documento` (
 
 LOCK TABLES `autores_documento` WRITE;
 /*!40000 ALTER TABLE `autores_documento` DISABLE KEYS */;
-INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3);
+INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3),(4,3,4);
 /*!40000 ALTER TABLE `autores_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +158,7 @@ CREATE TABLE `detalletesis` (
   PRIMARY KEY (`idDetalleTesis`),
   KEY `fk_tesis_documento_idx` (`idDocumento`),
   CONSTRAINT `fk_tesis_documento` FOREIGN KEY (`idDocumento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +167,7 @@ CREATE TABLE `detalletesis` (
 
 LOCK TABLES `detalletesis` WRITE;
 /*!40000 ALTER TABLE `detalletesis` DISABLE KEYS */;
-INSERT INTO `detalletesis` VALUES (1,1);
+INSERT INTO `detalletesis` VALUES (1,1),(2,4);
 /*!40000 ALTER TABLE `detalletesis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +279,7 @@ CREATE TABLE `documento` (
   KEY `fk_documento_unidad_academica_idx` (`id_unidad_academica`),
   CONSTRAINT `fk_documento_tipo_documento` FOREIGN KEY (`id_tipo_documento`) REFERENCES `catalogo_tipos_documento` (`id_catalogo`),
   CONSTRAINT `fk_documento_unidad_academica` FOREIGN KEY (`id_unidad_academica`) REFERENCES `catalogo_unidades_academicas` (`id_catalogo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,7 +288,7 @@ CREATE TABLE `documento` (
 
 LOCK TABLES `documento` WRITE;
 /*!40000 ALTER TABLE `documento` DISABLE KEYS */;
-INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/');
+INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/'),(4,'Prueba no revisado','No revisado pruebas','No debe de aparecer un búsquedas normales, ya que no ha sido revisado',2024,1,24,_binary '\0','/tesis/waw');
 /*!40000 ALTER TABLE `documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,8 +302,17 @@ DROP TABLE IF EXISTS `formulario_revision_propuesta`;
 CREATE TABLE `formulario_revision_propuesta` (
   `id_formulario` int NOT NULL AUTO_INCREMENT,
   `id_revision` int NOT NULL,
-  `objetivos` bit(1) DEFAULT NULL,
-  `claridad` bit(1) DEFAULT NULL,
+  `titulo` bit(1) NOT NULL,
+  `resumen` bit(1) NOT NULL,
+  `introduccion` bit(1) NOT NULL,
+  `objetivos` bit(1) NOT NULL,
+  `planteamiento` bit(1) NOT NULL,
+  `justificacion` bit(1) NOT NULL,
+  `resultados` bit(1) NOT NULL,
+  `metodologia` bit(1) NOT NULL,
+  `cronograma` bit(1) NOT NULL,
+  `dictamen` bit(1) NOT NULL,
+  `observaciones` text,
   PRIMARY KEY (`id_formulario`),
   KEY `fk_formulario_revision_idx` (`id_revision`),
   CONSTRAINT `fk_formulario_revision` FOREIGN KEY (`id_revision`) REFERENCES `docente_sinodal` (`idDocente_Sinodal`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -442,7 +451,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'ajarilloh1800@alumno.ipn.mx',_binary 'jdvbdsuoavbs',1,NULL,'Armando Damián','Jarillo Hernández'),(2,'remabarga@gmail.com',_binary '81dc9bdb52d04dc20036dbd8313ed055',3,'Ingenieria de software','Reina Elia','Melaba Abarca'),(3,'hola@gmail.com',_binary '58db1983f13a952599ecf41c3543473599ef395b3463be1ebf0f4a23b0070b5f',2,'','Erick Saul','Gutierrez Lopes');
+INSERT INTO `usuario` VALUES (1,'ajarilloh1800@alumno.ipn.mx',_binary 'jdvbdsuoavbs',1,NULL,'Armando Damián','Jarillo Hernández'),(2,'remabarga@gmail.com',_binary '81dc9bdb52d04dc20036dbd8313ed055',3,'Ingenieria de software','Reina Elia','Melaba Abarca'),(3,'hola@gmail.com',_binary '58db1983f13a952599ecf41c3543473599ef395b3463be1ebf0f4a23b0070b5f',2,'','Erick Saul','Gutierrez Lopez');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -670,7 +679,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int, mesTT varchar(15), numTT int)
 BEGIN
 DECLARE id_ultimo int;
 INSERT INTO `aeneta`.`documento`
@@ -702,7 +711,7 @@ CASE id_tipo
 	WHEN 2 THEN
 		INSERT INTO detalleproyecto (id_documento) values (id_ultimo);
 	WHEN 3 THEN
-		INSERT INTO detalleTT (id_documento, mes, registro_TT) values (id_ultimo, 'Abril', 0);
+		INSERT INTO detalleTT (id_documento, mes, registro_TT) values (id_ultimo, mesTT, numTT);
 END CASE;    
 
 END ;;
@@ -817,4 +826,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-27 19:37:49
+-- Dump completed on 2024-05-04 20:43:07
