@@ -1,4 +1,4 @@
-import { pool } from "../db.js";
+import { pool } from "../config/dbInstance.js";
 
 export const getItems = async (req, res) => {
   const { username, email, user_id } = req.body;
