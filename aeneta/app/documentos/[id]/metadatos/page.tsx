@@ -1,4 +1,5 @@
 'use client'
+import { LinkVizualizacionDocumento } from '@/app/componentes/botones_links/botones';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -38,12 +39,12 @@ export default function Page({ params }: { params: { id: string } }) {
     
 
     return (
-    <main>
+    <main className=''>
         <div className='w-full text-center p-2 bg-primario'>
-            <h1 className='font-bold text-xl'>Metadatos del documento</h1>
+            <h1 className='font-bold text-2xl'>Metadatos del documento</h1>
         </div>
       {documento.map((documento : {id: number, Titulo : string, Palabras_clave : string, Resumen : string, anio: number, url: string, tipo : string, unidad_academica : string, Nombres: string, Apellidos: string, revisado: Buffer}) => (
-        <div className='mx-auto w-fit border rounded flex flex-col p-2' key = {documento.id} >
+        <div className='mx-auto mt-2 w-fit border rounded-2xl flex flex-col p-2' key = {documento.id} >
             <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
             <div className='mt-3 my-1 flex px-2 items-center'>
                 <h3 className="font-bold text-xl">Palabras clave : </h3>
@@ -67,9 +68,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 <div className="font-bold text-xl">Resumen : </div>
                 <div className='font-semibold'>{documento.Resumen}</div>
             </div>
-            <button className='w-fit p-2 bg-primario rounded-md self-center'>
-                Boton del PDF
-            </button>
+            <LinkVizualizacionDocumento id={Number(documento.id)}/>
         </div>
 
       ))}

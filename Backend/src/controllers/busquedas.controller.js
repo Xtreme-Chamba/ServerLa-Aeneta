@@ -61,7 +61,7 @@ export const postBusquedaPalabrasClaveSimple = async (req, res) => {
 
 export const postBusquedaPaginasPalabrasClaveSimple = async (req, res) => {
   const {termino} = req.body;
-  const result = await pool.query("call busqueda_palabras_clave_sencilla(?)",
+  const result = await pool.query("call busqueda_palabras_clave_pagina_sencilla(?)",
   [termino]);
   console.log(result[0][0][0]);
   res.json(result[0][0][0]);

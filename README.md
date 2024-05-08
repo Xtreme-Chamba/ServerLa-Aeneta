@@ -20,7 +20,7 @@ Seguridad: Implementación de medidas de seguridad para proteger la privacidad d
 
 # Tecnologías Utilizadas
 Lenguaje de Programación: Python
-Framework: FatAPI para el desarrollo del backend y Next.js para el frontend.
+Framework: node.js para el desarrollo del backend y Next.js para el frontend.
 Bases de Datos: MySQL para almacenar metadatos de archivos.
 Librerías: Utilizaremos librerías como SQLAlchemy, y React Router, React DOM, React, TailwindCSS.
 

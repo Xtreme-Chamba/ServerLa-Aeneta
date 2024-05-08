@@ -11,3 +11,15 @@ export function LinkMetadatos({ titulo, id }: { titulo: string, id: number }) {
       </Link>
     );
   }
+
+export function LinkVizualizacionDocumento ( { id } : { id: number }){
+  return (
+    <Link
+      href={`/documento/${id}/documento`} //sugerido por mi
+    > 
+      <button className='w-fit p-2 bg-primario rounded-lg self-center font-semibold '>
+        Ver documento
+      </button>
+    </Link>
+  );
+}

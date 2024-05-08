@@ -43,20 +43,23 @@ export default function Page({
   
 
   return (
-    <div className="w-fit mx-auto">
-      <div className="flex w-full items-center justify-between text-center mt-1">
-        <h1 className={`text-2xl text-center`}>Busqueda de documentos</h1>
+    <div className="mx-auto">
+      <div className="w-full text-center bg-primario p-2">
+        <h1 className={`font-bold text-2xl`}>Busqueda de documentos</h1>
       </div>
-      <div className="mt-4 flex items-center justify-between gap-2 md:mt-8">
-        <Search placeholder="Buscar documentos academicos..." />
+      <div className="w-fit mx-auto">
+        <div className=" mt-4 flex items-center justify-between gap-2 md:mt-8">
+          <Search placeholder="Buscar documentos academicos..." />
+        </div>
+        {  <Suspense key={termino + currentPage} /* fallback={<InvoicesTableSkeleton />}*/>
+          <Table termino={termino} campo = {campo} currentPage={currentPage} NUMERO_RESULTADOS = {NUMERO_RESULTADOS} />
+        </Suspense> }
+      
+        <div className="mt-5 flex w-full justify-center">
+          { <Pagination totalPages={totalPages} /> }
+        </div>
       </div>
-      {  <Suspense key={termino + currentPage} /* fallback={<InvoicesTableSkeleton />}*/>
-        <Table termino={termino} campo = {campo} currentPage={currentPage} NUMERO_RESULTADOS = {NUMERO_RESULTADOS} />
-      </Suspense> }
-    
-      <div className="mt-5 flex w-full justify-center">
-        { <Pagination totalPages={totalPages} /> }
-      </div>
+      
     </div> 
   );
 }
