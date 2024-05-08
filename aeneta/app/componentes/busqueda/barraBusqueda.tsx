@@ -1,7 +1,4 @@
 'use client';
-
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-//import { constants } from 'buffer';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'; 
 import { useDebouncedCallback } from 'use-debounce'; //librería que se encarga de hacer la busqueda cuando es necesario y no en cada cambio
 //useSearchParams de parametros de búsqueda en la URL

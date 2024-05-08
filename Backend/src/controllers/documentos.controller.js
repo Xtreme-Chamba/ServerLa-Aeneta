@@ -1,4 +1,4 @@
-import { pool } from "../db.js";
+import { pool } from "../config/dbInstance.js";
 //reotrna un arreglo de resultados (pero solo contiene uno)
 export const getMetadatosDocumento = async (req, res) =>{
   const { idDoc } = req.body;
