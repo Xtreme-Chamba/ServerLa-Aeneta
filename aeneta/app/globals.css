@@ -5,3 +5,22 @@
 body{
   background-color: #FEFAFB;
 }
+
+.bloque-titulo{
+  @apply w-full text-center p-2 bg-primario
+}
+.fuente-titulo{
+  @apply font-bold text-2xl
+}
+.contenedor-input{
+  @apply p-1 my-2 flex flex-row justify-center
+}
+.input{
+  @apply border rounded-md p-1
+}
+.contenedor-col{
+  @apply flex flex-col justify-center
+}
+.btn{
+  @apply w-fit p-2 bg-primario rounded-lg self-center font-semibold 
+}

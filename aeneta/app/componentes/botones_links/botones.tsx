@@ -1,4 +1,3 @@
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import Link from "next/link";
 
 export function LinkMetadatos({ titulo, id }: { titulo: string, id: number }) {
@@ -17,7 +16,7 @@ export function LinkVizualizacionDocumento ( { id } : { id: number }){
     <Link
       href={`/documento/${id}/documento`} //sugerido por mi
     > 
-      <button className='w-fit p-2 bg-primario rounded-lg self-center font-semibold '>
+      <button className='btn'>
         Ver documento
       </button>
     </Link>

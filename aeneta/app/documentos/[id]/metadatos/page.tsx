@@ -40,8 +40,8 @@ export default function Page({ params }: { params: { id: string } }) {
 
     return (
     <main className=''>
-        <div className='w-full text-center p-2 bg-primario'>
-            <h1 className='font-bold text-2xl'>Metadatos del documento</h1>
+        <div className='bloque-titulo'>
+            <h1 className='fuente-titulo'>Metadatos del documento</h1>
         </div>
       {documento.map((documento : {id: number, Titulo : string, Palabras_clave : string, Resumen : string, anio: number, url: string, tipo : string, unidad_academica : string, Nombres: string, Apellidos: string, revisado: Buffer}) => (
         <div className='mx-auto mt-2 w-fit border rounded-2xl flex flex-col p-2' key = {documento.id} >
