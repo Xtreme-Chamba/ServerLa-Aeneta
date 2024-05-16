@@ -1,8 +1,14 @@
 import { pool } from "../config/dbInstance.js"
 
+//el valor del tipo docente en el catalogo
+const TIPO_USUARIO_ALUMNO = 1;
+const TIPO_USUARIO_EGRESADO = 2;
+const TIPO_USUARIO_DOCENTE = 3;
+const TIPO_USUARIO_REVISOR = 4;
+
 export const getAllUsers = async () => {
     const [data, dataTypes] = await pool.query("SELECT * FROM usuario");
-    return data
+    return data;
 }
 
 export const createUser = async (name, surname, email, password, typeUser) => {
@@ -12,3 +18,10 @@ export const createUser = async (name, surname, email, password, typeUser) => {
     );
     return result[0].affectedRows;
 }
+
+export const getAllNombresDocentes = async (req, res) =>{
+    const result = await pool.query("select id_usuario, Nombres, apellidos from usuario  WHERE id_tipo_usuario = ?",
+    [ TIPO_USUARIO_DOCENTE ]);
+    console.log(result[0]);
+    res.json(result[0]);
+  };
