@@ -1,9 +1,7 @@
 'use client'
-//import InvoiceStatus from '@/app/ui/invoices/status';
-//import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-//import { fetchFilteredInvoices } from '@/app/lib/data';
 import { useEffect, useState } from "react";
 import { LinkMetadatos } from "../botones_links/botones";
+import { DocumentoLigero } from "@/app/clases/Clases";
 
 export default async function Table({
   termino,
@@ -17,7 +15,7 @@ export default async function Table({
   NUMERO_RESULTADOS: number;
 }) {
 
-  const [documentos, setDocumentos] = useState<any[]>([]);
+  const [documentos, setDocumentos] = useState<DocumentoLigero[]>([]);
   const [cuerpoPeticion, setPeticion] = useState({
     terminoBusqueda: termino,
     numResultados: NUMERO_RESULTADOS,
@@ -67,9 +65,7 @@ export default async function Table({
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 flex flex-col gap-2">
           
-            {documentos.map((documento :
-              {id: number, Titulo : string, Palabras_clave : string, anio: number, tipo : string, Nombres: string, Apellidos: string, revisado: number}
-            ) => (
+            {documentos.map(( documento ) => (
               <div
                 key={documento.id}
                 className="p-4 bg-secundario rounded-md"

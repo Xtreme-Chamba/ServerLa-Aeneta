@@ -1,11 +1,12 @@
 'use client'
+import { DocumentoCompleto } from '@/app/clases/Clases';
 import { LinkVizualizacionDocumento } from '@/app/componentes/botones_links/botones';
 import { notFound } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export default function Page({ params }: { params: { id: string } }) {
     const id = params.id;
-    const [documento, setDocumento] = useState([]);
+    const [documento, setDocumento] = useState<DocumentoCompleto[]>([]);
     useEffect(() => {
         try {
             const peticion = {
@@ -43,7 +44,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <div className='bloque-titulo'>
             <h1 className='fuente-titulo'>Metadatos del documento</h1>
         </div>
-      {documento.map((documento : {id: number, Titulo : string, Palabras_clave : string, Resumen : string, anio: number, url: string, tipo : string, unidad_academica : string, Nombres: string, Apellidos: string, revisado: Buffer}) => (
+      {documento.map((documento) => (
         <div className='mx-auto mt-2 w-fit border rounded-2xl flex flex-col p-2' key = {documento.id} >
             <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
             <div className='mt-3 my-1 flex px-2 items-center'>

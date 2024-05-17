@@ -22,6 +22,5 @@ export const createUser = async (name, surname, email, password, typeUser) => {
 export const getAllNombresDocentes = async (req, res) =>{
     const result = await pool.query("select id_usuario, Nombres, apellidos from usuario  WHERE id_tipo_usuario = ?",
     [ TIPO_USUARIO_DOCENTE ]);
-    console.log(result[0]);
     res.json(result[0]);
   };

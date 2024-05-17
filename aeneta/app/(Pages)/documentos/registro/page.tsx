@@ -1,9 +1,10 @@
 'use client'
+import { UsuarioNombre } from "@/app/clases/Clases";
 import { useEffect, useState } from "react";
 
 export default function Page(){
     //lo normal son los internos
-    const [listaDirectores, setListaDirectores] = useState<any[]>([]);
+    const [listaDirectores, setListaDirectores] = useState<UsuarioNombre[]>([]);
     //ya luego vemos lo de los directores externos
     //const [listaDirectoresExternos, setListaDirectoresExt] = useState<any[]>([]);
 
@@ -43,7 +44,7 @@ export default function Page(){
                 <select className="ml-1 text-left w-1/2 input" name="director-1" id="director-1">
                     <option value="0" className="italic">Indique algún docente registrado como director</option>
                     
-                    {listaDirectores.map( (director : {id : number, Nombres: string, apellidos: string}) => (
+                    {listaDirectores.map( (director) => (
                         <option key={director.id} value={director.id} >{director.apellidos} {director.Nombres}</option>
                     ) ) }
                 </select>
