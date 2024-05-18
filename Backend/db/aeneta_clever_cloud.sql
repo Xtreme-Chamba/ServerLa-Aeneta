@@ -494,7 +494,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id_usuario`),
   KEY `fk_usuario_a_tipo_usaurio_idx` (`id_tipo_usuario`),
   CONSTRAINT `fk_usuario_a_tipo_usaurio` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `catalogo_tipos_usuario` (`id_catalogo`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -503,7 +503,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'ajarilloh1800@alumno.ipn.mx',_binary 'jdvbdsuoavbs',1,NULL,'Armando Damián','Jarillo Hernández'),(2,'remabarga@gmail.com',_binary '81dc9bdb52d04dc20036dbd8313ed055',3,'Ingenieria de software','Reina Elia','Melaba Abarca'),(3,'hola@gmail.com',_binary '58db1983f13a952599ecf41c3543473599ef395b3463be1ebf0f4a23b0070b5f',2,'','Erick Saul','Gutierrez Lopez');
+INSERT INTO `usuario` VALUES (1,'ajarilloh1800@alumno.ipn.mx',_binary 'jdvbdsuoavbs',1,NULL,'Armando Damián','Jarillo Hernández'),(2,'remabarga@gmail.com',_binary '81dc9bdb52d04dc20036dbd8313ed055',3,'Ingenieria de software','Reina Elia','Melaba Abarca'),(3,'hola@gmail.com',_binary '58db1983f13a952599ecf41c3543473599ef395b3463be1ebf0f4a23b0070b5f',2,'','Erick Saul','Gutierrez Lopez'),(4,'docente@docente.ipn.mx',_binary 'd65e0698508b9419b07651565e35382238c1afbc66adde0d7fe05ef4b1e979ff',3,'Inteligencia Artificial','Docencio','Hernández Hernández');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,7 +520,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_anio_puntual_pagina_sencilla`( anio_busqueda INT )
+CREATE  PROCEDURE `busqueda_anio_puntual_pagina_sencilla`( anio_busqueda INT )
 BEGIN
 	SELECT COUNT(*) as total FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where anio = anio_busqueda and revisado = 1  and revision = 1;
@@ -540,7 +540,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_anio_puntual_sencilla`( anio_busqueda INT, cantidad_resultados int, salto int )
+CREATE  PROCEDURE `busqueda_anio_puntual_sencilla`( anio_busqueda INT, cantidad_resultados int, salto int )
 BEGIN
 	SELECT * FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where anio = anio_busqueda and revisado = 1 and revision = 1
@@ -562,7 +562,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_anio_rango_secilla`(anio_inicio int, anio_final int, cantidad_resultados int, salto int)
+CREATE  PROCEDURE `busqueda_anio_rango_secilla`(anio_inicio int, anio_final int, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where anio >= anio_inicio and anio <= anio_final and revisado = 1 and revision = 1
@@ -584,7 +584,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_autor_pagina_sencilla`( cadena_busqueda text )
+CREATE  PROCEDURE `busqueda_autor_pagina_sencilla`( cadena_busqueda text )
 BEGIN
 	SELECT count(*) as total FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1 and revision = 1;
@@ -604,12 +604,51 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_autor_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int )
+CREATE  PROCEDURE `busqueda_autor_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int )
 BEGIN
 	SELECT * FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1 and revision = 1
     LIMIT cantidad_resultados
     OFFSET salto;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_no_revisado` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE PROCEDURE `busqueda_no_revisado`(cantidad_resultados int, salto int)
+BEGIN
+	select * from metadatos_cortados_documento where revisado = 0
+    limit cantidad_resultados offset salto;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `busqueda_no_revisado_pagina` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE PROCEDURE `busqueda_no_revisado_pagina`()
+BEGIN
+	select COUNT(*) as total from metadatos_cortados_documento where revisado = 0;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -626,7 +665,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_palabras_clave_pagina_sencilla`( cadena_busqueda text)
+CREATE  PROCEDURE `busqueda_palabras_clave_pagina_sencilla`( cadena_busqueda text)
 BEGIN
 	SELECT COUNT(*) as total FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1 and revision = 1;
@@ -646,7 +685,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_palabras_clave_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
+CREATE  PROCEDURE `busqueda_palabras_clave_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1 and revision = 1
@@ -669,7 +708,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_titulo_pagina_sencilla`( cadena_busqueda text)
+CREATE  PROCEDURE `busqueda_titulo_pagina_sencilla`( cadena_busqueda text)
 BEGIN
 	SELECT COUNT(*) as total FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(titulo, cadena_busqueda) > 0 and revisado = 1  and revision = 1;
@@ -689,7 +728,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `busqueda_titulo_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
+CREATE  PROCEDURE `busqueda_titulo_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM bhdrlvvyh7fsns4hcjae.metadatos_cortados_documento
 	where INSTR(titulo, cadena_busqueda) > 0 and revisado = 1 and revision = 1
@@ -712,7 +751,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `consultar_revision_documento`(id_doc int)
+CREATE  PROCEDURE `consultar_revision_documento`(id_doc int)
 BEGIN
 	SELECT * from revision_documento where id_documento = id_doc limit 1;
 END ;;
@@ -731,7 +770,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int, mesTT varchar(15), numTT int)
+CREATE  PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int, mesTT varchar(15), numTT int)
 BEGIN
 DECLARE id_ultimo int;
 INSERT INTO `bhdrlvvyh7fsns4hcjae`.`documento`
@@ -782,7 +821,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `mandar_revision_documento`(juicio bit, notas TEXT, id_doc int)
+CREATE  PROCEDURE `mandar_revision_documento`(juicio bit, notas TEXT, id_doc int)
 BEGIN
 	#indicar que el doucmento ya fue revisado
 	UPDATE documento 
@@ -807,7 +846,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `registro_usuario`(email varchar(255), pass TEXT, tipo int, especialidad varchar(45), nombres TEXT, apellidos TEXT)
+CREATE  PROCEDURE `registro_usuario`(email varchar(255), pass TEXT, tipo int, especialidad varchar(45), nombres TEXT, apellidos TEXT)
 BEGIN
 INSERT INTO `bhdrlvvyh7fsns4hcjae`.`usuario`
 (`email`,
@@ -845,7 +884,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `metadatos_cortados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`año` AS `anio`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado`,`revision_documento`.`estado_revision` AS `revision` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) left join `revision_documento` on((`revision_documento`.`id_documento` = `documento`.`idDocumento`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -863,7 +902,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 SQL SECURITY DEFINER */
+/*!50013  SQL SECURITY DEFINER */
 /*!50001 VIEW `metadatos_detallados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`Resumen` AS `Resumen`,`documento`.`año` AS `anio`,`documento`.`url_archivo` AS `url`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`catalogo_unidades_academicas`.`unidad_academica` AS `unidad_academica`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `catalogo_unidades_academicas` on((`documento`.`id_unidad_academica` = `catalogo_unidades_academicas`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -878,4 +917,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-11 18:54:16
+-- Dump completed on 2024-05-18 17:42:21
