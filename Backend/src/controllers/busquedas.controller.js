@@ -95,3 +95,22 @@ export const postBusquedaAnioRangoSimple = async (req, res) => {
   ]);
   res.json(result[0][0]);
 };
+
+export const postBusquedaNoRevisado = async (req, res) => {
+  if(req.body == null || req.body == undefined || req.body == {}){
+    console.log("Toy vacio")
+    res.json({"message":"cuerpo vacio o no leo nada de entrada"});
+    return;
+  }
+  const {  numResultados, salto } = req.body;
+  const result = await pool.query("call busqueda_no_revisado(?,?)", [
+    numResultados, salto ]);
+  res.json(result[0][0]);
+  };
+
+export const getBusquedaPaginasNoRevisado = async (req, res) => {
+  const result = await pool.query("call busqueda_no_revisado_pagina()" );
+  console.log(result[0][0][0]);
+  res.json(result[0][0][0]);
+};
+  

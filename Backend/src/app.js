@@ -18,7 +18,7 @@ app.use(authRoutes);
 app.use("/users", userRoutes);
 
 app.use(inventoryRoutes);
-app.use(rutasBusqueda);
+app.use("/busqueda", rutasBusqueda);
 app.use(rutasDocumentos);
 
 export default app;

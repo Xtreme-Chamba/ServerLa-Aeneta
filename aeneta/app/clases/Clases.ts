@@ -7,7 +7,7 @@ export type DocumentoLigero = {
     tipo : "Tesis" | "Proyecto Investigación" | "Curricular (TT)" | "Propuesta",
     Nombres: string, 
     Apellidos: string, 
-    revisado: Boolean
+    revisado: boolean
 }
 
 //metadatos completos
@@ -22,7 +22,7 @@ export type DocumentoCompleto = {
     unidad_academica : string, 
     Nombres: string, 
     Apellidos: string, 
-    revisado: Boolean
+    revisado: boolean
 };
 
 //obtener usuario (toda la información)

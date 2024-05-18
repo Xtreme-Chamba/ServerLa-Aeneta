@@ -8,7 +8,6 @@ export default function Page(){
     //ya luego vemos lo de los directores externos
     //const [listaDirectoresExternos, setListaDirectoresExt] = useState<any[]>([]);
 
-
     useEffect(() => {
       try{
         const fetchDirectores = async () => {
