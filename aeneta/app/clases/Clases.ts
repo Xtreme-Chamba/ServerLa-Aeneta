@@ -8,7 +8,7 @@ export type DocumentoLigero = {
     Nombres: string, 
     Apellidos: string, 
     revisado: boolean
-}
+};
 
 //metadatos completos
 export type DocumentoCompleto = {
@@ -33,7 +33,7 @@ export type Usuario = {
     tipo : "alumno" | "egresado" | "docente" | "revisor", //con un JOIN se debería de obtener de la query el nombre del campo en vez de id_tipo
     especialidad : string | null,
     Nombres: string,
-    apellidos: string,
+    apellidos: string
 };
 
 //obtener usuario (solo su id, nombre y apellidos)
@@ -45,10 +45,10 @@ export type UsuarioNombre = {
 
 //El objeto que será necesario para mandar / obtener una revisión de documento
 export type Revision = {
-    id: number,
+    id_revision: number,
     id_documento : number,
-    notas_revision : string
-    estado_revision : Boolean
+    notas_revision : string,
+    estado_revision : boolean
 };
 
 //definición futura para las referencias (no creo que llegemos a implementarlas)
@@ -73,4 +73,4 @@ export type FormularioRevision = {
     cronograma : boolean,
     dictamen : boolean,
     obervaciones : string
-}
+};

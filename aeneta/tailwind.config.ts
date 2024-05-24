@@ -20,7 +20,9 @@ const config: Config = {
       "fondo": "#FEFAFB",
       "primario": "#D9275A",
       "secundario": "#EA9C85",
-      "resaltar": "#E39361"
+      "resaltar": "#E39361",
+      "aceptado" : "#1FF02E",
+      "rechazado" : "#E83E2D"
     }
   },
   plugins: [],
