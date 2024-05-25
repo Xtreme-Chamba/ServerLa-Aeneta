@@ -10,9 +10,9 @@ export const getMetadatosDocumento = async (req, res) =>{
 
 export const getRevisionDocumento = async (req, res) => {
   const {idDoc} = req.body;
-  const result = await pool.query("select * from revision_documento where id_documento = ? limit 1", [ idDoc ]);
-  const rev2 = Boolean(result[0][0].estado_revision);
-  console.log(rev2);
-  result[0][0].estado_revision = rev2;
-  res.json(result[0][0]);
+  const result = await pool.query("call obtenerRevisionYTitulo(?)", [ idDoc ]);
+  //al venir de procemdiento almacenado, por como lo trae la libería, hay que acceder hasta [0][0][0]
+  const rev2 = Boolean(result[0][0][0].estado_revision[0]);
+  result[0][0][0].estado_revision = rev2;
+  res.json(result[0][0][0]);
 };

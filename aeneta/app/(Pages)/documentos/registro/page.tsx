@@ -1,12 +1,13 @@
 'use client'
 import { UsuarioNombre } from "@/app/clases/Clases";
+import { FaPlusSquare } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 export default function Page(){
     //lo normal son los internos
     const [listaDirectores, setListaDirectores] = useState<UsuarioNombre[]>([]);
     //ya luego vemos lo de los directores externos
-    //const [listaDirectoresExternos, setListaDirectoresExt] = useState<any[]>([]);
+    const [listaDirectoresExternos, setListaDirectoresExt] = useState<UsuarioNombre[]>([]);
 
     useEffect(() => {
       try{
@@ -17,12 +18,19 @@ export default function Page(){
             const data = await response.json();
             setListaDirectores(data);
         }
+        const fetchDirectoresExternos = async () => {
+            //propuesta de ruta para acceder a la lista de directores, es un GET
+            const response = await fetch("http://localhost:4000/users/directores/externos", 
+            { method : "GET"} );
+            const data = await response.json();
+            setListaDirectoresExt(data);
+        }
         fetchDirectores(); //se obtienen los docentes disponibles, para ser directores
+        fetchDirectoresExternos();
       }catch(error){
         console.log(error)
       }
     }, [])
-    
 
     return (
     <main>
@@ -48,8 +56,16 @@ export default function Page(){
                     ) ) }
                 </select>
             </div>
-
-
+            {/**Meter funcionalidad para agregar director interno, o agregar director externo */}
+            <div className="flex flex-row align-middle items-center text-center">
+                <button className="btn-2">{/**por definir estilos de btn-2 */}
+                    <FaPlusSquare />Nuevo director INTERNO
+                </button>
+                <button className="btn-2">
+                    <FaPlusSquare />Nuevo director EXTERNO
+                </button>
+            </div>
+            
             {/*Lo mismo para directores externos, e igual agregar un botón pararegistrar otro director externo */}
             
             <div className="contenedor-input">
@@ -60,6 +76,7 @@ export default function Page(){
                 <label htmlFor="palabras_clave" className="text-right w-1/2">Palabras clave:</label>
                 <input className="input ml-1 text-left w-1/2" name="palabras_clave" id="palabras_clave" type="text" placeholder="Escriba de 2 a 4 palabras clave..." />
             </div>
+            <p className="italic font-light text-right text-xs">Escribir las palabras clave separadas por comas</p>
             <div className="contenedor-input align-top">
                 <label htmlFor="resumen" className="text-right w-1/2">Resumen:</label>
                 <textarea className="input ml-1 text-left w-1/2" name="resumen" id="resumen" placeholder="Escriba el resumen aquí...">

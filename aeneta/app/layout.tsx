@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  keywords : "Repositorio, Proyectos titulacion, IPN",
   title: "Server la Aeneta",
   description: "Repositorio digital de trabajos academicos de titulación del Institulo politécnico nacional",
 };
@@ -16,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className ={inter.className + " bg-fondo"}  >
         {/* Navbar */}
         {children}
         {/*Footer */}

@@ -22,9 +22,7 @@ export default function Page({ params }: { params: { id: string } }) {
               });
               //una opción es: const urlencoded = new URLSearchParams({
               let data = await response.json();
-              console.log(data);
               setRevision(data);
-              console.log(revisionDocumento);
             }
             fetchRevisionDocumento();
             if(!revisionDocumento || revisionDocumento == undefined){
@@ -36,7 +34,7 @@ export default function Page({ params }: { params: { id: string } }) {
     }, [id])
     
     const classNameStatus = clsx(
-      'flex items-center justify-center rounded-md border',
+      'flex items-center justify-center rounded-md border my-1 w-fit text-center m-auto p-1',
       {
         'bg-aceptado': revisionDocumento?.estado_revision == true,
         'bg-rechazado': revisionDocumento?.estado_revision == false,
@@ -51,13 +49,14 @@ export default function Page({ params }: { params: { id: string } }) {
             <h1 className='fuente-titulo'>Revision del documento</h1>
         </div>
         {revisionDocumento && 
-        <div className="flex m-auto items-center flex-col border rounded-md text-center p-2 w-fit">
+        <div className="flex m-auto items-center flex-col border rounded-md text-center p-2 w-fit my-2 bg-secundario">
           <div>
-            <span>Estatus revision</span>
+            <h2 className='my-1 font-medium text-xl'>Revisión del documento "{revisionDocumento.titulo}"</h2>
+            <span className='my-1 font-medium'>Estatus revision</span>
             <div className={classNameStatus}>{textoStatus}</div>
           </div>
-          <div>Notas de revision:</div>
-          <div className='border rounded-sm p-2 text-justify'>{revisionDocumento.notas_revision}</div>
+          <div className='my-1 font-medium'>Notas de revision:</div>
+          <div className='border rounded-sm p-2 text-justify my-1 bg-fondo'>{revisionDocumento.notas_revision}</div>
         </div>
         }
     </main>

@@ -48,7 +48,8 @@ export type Revision = {
     id_revision: number,
     id_documento : number,
     notas_revision : string,
-    estado_revision : boolean
+    estado_revision : boolean,
+    titulo : string
 };
 
 //definición futura para las referencias (no creo que llegemos a implementarlas)

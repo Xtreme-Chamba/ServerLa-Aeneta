@@ -10,7 +10,7 @@ body{
   @apply w-full text-center p-2 bg-primario
 }
 .fuente-titulo{
-  @apply font-bold text-2xl
+  @apply font-black text-2xl
 }
 .contenedor-input{
   @apply p-1 my-2 flex flex-row justify-center
@@ -23,4 +23,7 @@ body{
 }
 .btn{
   @apply w-fit p-2 bg-primario rounded-lg self-center font-semibold 
+}
+.btn-2{
+  @apply w-fit p-2 bg-secundario rounded-md self-center font-normal flex flex-row align-middle
 }
