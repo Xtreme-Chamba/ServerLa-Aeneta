@@ -71,6 +71,10 @@ export const postBusquedaPaginasPalabrasClaveSimple = async (req, res) => {
 //le pide al body un año, y este hace el call para obtener el resultado de la busqueda
 export const postBusquedaAnioPuntualSimple = async (req, res) => {
   const { terminoBusqueda, numResultados, salto  } = req.body;
+  if(!Number.isInteger(Number.parseInt(terminoBusqueda)) || Number.isNaN(terminoBusqueda)){ //si no es numero, hay que salir
+    console.log("Entrada invalida de datos");
+    return;
+  }
   const result = await pool.query("call busqueda_anio_puntual_sencilla(?,?,?)", [
     terminoBusqueda, numResultados, salto 
   ]);
@@ -79,6 +83,9 @@ export const postBusquedaAnioPuntualSimple = async (req, res) => {
 
 export const postBusquedaPaginasAnioPuntualSimple = async (req, res) => {
   const {termino} = req.body;
+  if(!Number.isInteger(Number.parseInt(terminoBusqueda)) || Number.isNaN(terminoBusqueda)){ //si no es numero, hay que salir
+    return;
+  }
   const result = await pool.query("call busqueda_anio_puntual_pagina_sencilla(?)",
   [termino]);
   console.log(result[0][0][0]);
@@ -90,7 +97,7 @@ export const postBusquedaPaginasAnioPuntualSimple = async (req, res) => {
 //call y obtener un resultado de búsqueda
 export const postBusquedaAnioRangoSimple = async (req, res) => {
   const { anio_inicio, anio_final, numResultados, salto  } = req.body;
-  const result = await pool.query("call busqueda_anio_rengo_sencilla(?,?,?,?)", [
+  const result = await pool.query("call busqueda_anio_rango_sencilla(?,?,?,?)", [
     anio_inicio,anio_final, numResultados, salto 
   ]);
   res.json(result[0][0]);
