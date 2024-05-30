@@ -15,6 +15,7 @@ export const getDocumentById = async (req,res) => {
 
 };
 
+
 export const updateDocument = async (req,res) => {
   // data for the modified document const { name, quantity, quality, recived, expiration, user_id } = req.body;
   const result = await pool.query(
