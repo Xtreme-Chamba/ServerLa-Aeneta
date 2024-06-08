@@ -24,3 +24,8 @@ export const getAllNombresDocentes = async (req, res) =>{
     [ TIPO_USUARIO_DOCENTE ]);
     res.json(result[0]);
   };
+
+  export const getAllNombresDirectoresExternos = async (req, res) =>{
+    const result = await pool.query("select id_director_externo, nombres, apellidos from director_externo");
+    res.json(result[0]);
+  };

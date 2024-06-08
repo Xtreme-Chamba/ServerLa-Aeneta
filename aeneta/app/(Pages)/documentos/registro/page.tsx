@@ -24,6 +24,7 @@ export default function Page(){
             { method : "GET"} );
             const data = await response.json();
             setListaDirectoresExt(data);
+            console.log(listaDirectoresExternos)
         }
         fetchDirectores(); //se obtienen los docentes disponibles, para ser directores
         fetchDirectoresExternos();
@@ -46,28 +47,25 @@ export default function Page(){
             
             {/*Para directores, hacer un fetch de los profesores registrados para poder seleccionar a lo más dos */}
             {/*Y tambien habría que permitir que pueda elegir uno o dos de esta forma, y del externo sería cero o uno */}
-            <div className="contenedor-input">
-                <label className="text-right w-1/2" htmlFor="director-1">Director de tesis:</label>
-                <select className="ml-1 text-left w-1/2 input" name="director-1" id="director-1">
-                    <option value="0" className="italic">Indique algún docente registrado como director</option>
-                    
-                    {listaDirectores.map( (director) => (
-                        <option key={director.id} value={director.id} >{director.apellidos} {director.Nombres}</option>
-                    ) ) }
-                </select>
-            </div>
-            {/**Meter funcionalidad para agregar director interno, o agregar director externo */}
-            <div className="flex flex-row align-middle items-center text-center">
-                <button className="btn-2">{/**por definir estilos de btn-2 */}
-                    <FaPlusSquare />Nuevo director INTERNO
-                </button>
-                <button className="btn-2">
-                    <FaPlusSquare />Nuevo director EXTERNO
-                </button>
-            </div>
+
+            <ListaDirectores nombreInput={String("director-1")} txtLabel="Director 1" arregloDirectores = {listaDirectores} />
             
+            {/**Meter funcionalidad para agregar director interno, o agregar director externo */}
+            <div className="flex flex-row align-middle items-center text-center justify-center">
+                <button className="btn-2" type="button">{/**por definir estilos de btn-2 */}
+                    <FaPlusSquare className="align-middle flex items-center"/>Nuevo director INTERNO
+                </button>
+                <button className="btn-2" type="button">
+                    <FaPlusSquare className="align-middle flex items-center"/>Nuevo director EXTERNO
+                </button>
+            </div>
+            {/*Se debe de mostrar y ocultar conforme se agregue el botón */}
+            <ListaDirectores nombreInput={String("director-2-int")} txtLabel="Director 2" arregloDirectores = {listaDirectores} />
             {/*Lo mismo para directores externos, e igual agregar un botón pararegistrar otro director externo */}
             
+            <ListaDirectores nombreInput={String("director-2-ext")} txtLabel="Director externo" arregloDirectores = {listaDirectoresExternos} />
+            
+
             <div className="contenedor-input">
                 <label htmlFor="anio" className="text-right w-1/2">Año publicación:</label>
                 <input className="input ml-1 text-left w-1/2" name="anio" id="anio" type="number" placeholder="2024" />
@@ -151,6 +149,24 @@ function SelectTipoDocumento(){
             <option value='2'>Proyecto de investigación</option>
             <option value='3'>Documento curricular (TT)</option>
         </select>
+
+    );
+}
+
+function ListaDirectores({nombreInput,txtLabel, arregloDirectores }:
+     {nombreInput : string, txtLabel : string, arregloDirectores : UsuarioNombre[]}){
+    return (
+        <div className="contenedor-input">
+            <label className="text-right w-1/2" htmlFor={nombreInput}>{txtLabel}:</label>
+            <select className="ml-1 text-left w-1/2 input" name={nombreInput} id={nombreInput}>
+                    <option value="0" className="italic">Indique algún docente registrado como director</option>
+                    
+                    {arregloDirectores.map( (director) => (
+                        <option key={director.id} value={director.id} >{director.apellidos} {director.Nombres}</option>
+                    ) ) }
+            </select>
+        </div>
+        
 
     );
 }
