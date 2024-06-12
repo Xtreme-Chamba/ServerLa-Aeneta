@@ -42,7 +42,13 @@ export type UsuarioNombre = {
     Nombres : string,
     apellidos : string
 };
-
+//nombre, apellido y especialidad
+export type UsuarioEspecialidad = {
+    id : number,
+    Nombres : string,
+    apellidos : string,
+    especialidad : string
+};
 //El objeto que será necesario para mandar / obtener una revisión de documento
 export type Revision = {
     id_revision: number,

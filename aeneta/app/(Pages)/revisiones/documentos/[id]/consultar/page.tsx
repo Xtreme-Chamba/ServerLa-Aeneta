@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function Page({ params }: { params: { id: string } }) {
     const id = Number(params.id);
-    const [revisionDocumento, setRevision] = useState<any>({});
+    const [revisionDocumento, setRevision] = useState<Revision>();
     useEffect(() => {
         try {
             const peticion = {
