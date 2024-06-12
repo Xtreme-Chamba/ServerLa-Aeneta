@@ -33,6 +33,27 @@ export default function Page(){
       }
     }, [])
 
+    const btnToogleInterno = document.getElementById("btn-toogle-dir-interno") as HTMLElement;
+    const btnToogleExterno = document.getElementById("btn-toogle-dir-externo") as HTMLElement;
+
+    if(btnToogleInterno && listaDirectores)
+        btnToogleInterno?.addEventListener('click', toogleInterno);
+
+    if(btnToogleExterno && listaDirectoresExternos)
+        btnToogleExterno?.addEventListener('click', toogleExterno);
+
+    
+    function toogleInterno() {
+        const selectInternos = document.getElementById("container_director-2-int");
+        selectInternos?.classList.toggle("hidden");
+        return ;
+    }
+
+    function toogleExterno() {
+        const selectExternos = document.getElementById("container_director-2-ext");
+        selectExternos?.classList.toggle("hidden");
+    }
+
     return (
     <main>
         <div className="bloque-titulo">
@@ -48,22 +69,22 @@ export default function Page(){
             {/*Para directores, hacer un fetch de los profesores registrados para poder seleccionar a lo más dos */}
             {/*Y tambien habría que permitir que pueda elegir uno o dos de esta forma, y del externo sería cero o uno */}
 
-            <ListaDirectores nombreInput={String("director-1")} txtLabel="Director 1" arregloDirectores = {listaDirectores} />
+            <ListaDirectores nombreInput={String("director-1")} txtLabel="Director 1" arregloDirectores = {listaDirectores} defaultHidden = {false} />
             
             {/**Meter funcionalidad para agregar director interno, o agregar director externo */}
             <div className="flex flex-row align-middle items-center text-center justify-center">
-                <button className="btn-2" type="button">{/**por definir estilos de btn-2 */}
+                <button className="btn-2" type="button" id="btn-toogle-dir-interno" >{/**por definir estilos de btn-2 */}
                     <FaPlusSquare className="align-middle flex items-center"/>Nuevo director INTERNO
                 </button>
-                <button className="btn-2" type="button">
+                <button className="btn-2" type="button" id="btn-toogle-dir-externo" >
                     <FaPlusSquare className="align-middle flex items-center"/>Nuevo director EXTERNO
                 </button>
             </div>
             {/*Se debe de mostrar y ocultar conforme se agregue el botón */}
-            <ListaDirectores nombreInput={String("director-2-int")} txtLabel="Director 2" arregloDirectores = {listaDirectores} />
+            <ListaDirectores nombreInput={String("director-2-int")} txtLabel="Director 2" arregloDirectores = {listaDirectores} defaultHidden ={ true }/>
             {/*Lo mismo para directores externos, e igual agregar un botón pararegistrar otro director externo */}
             
-            <ListaDirectores nombreInput={String("director-2-ext")} txtLabel="Director externo" arregloDirectores = {listaDirectoresExternos} />
+            <ListaDirectores nombreInput={String("director-2-ext")} txtLabel="Director externo" arregloDirectores = {listaDirectoresExternos} defaultHidden = {true}  />
             
 
             <div className="contenedor-input">
@@ -77,7 +98,7 @@ export default function Page(){
             <p className="italic font-light text-right text-xs">Escribir las palabras clave separadas por comas</p>
             <div className="contenedor-input align-top">
                 <label htmlFor="resumen" className="text-right w-1/2">Resumen:</label>
-                <textarea className="input ml-1 text-left w-1/2" name="resumen" id="resumen" placeholder="Escriba el resumen aquí...">
+                <textarea className="input ml-1 text-left w-1/2 h-fit resize-none" name="resumen" id="resumen" placeholder="Escriba el resumen aquí..." >
                 </textarea>
             </div>
             <div className="contenedor-input">
@@ -153,14 +174,13 @@ function SelectTipoDocumento(){
     );
 }
 
-function ListaDirectores({nombreInput,txtLabel, arregloDirectores }:
-     {nombreInput : string, txtLabel : string, arregloDirectores : UsuarioNombre[]}){
+function ListaDirectores({nombreInput,txtLabel, arregloDirectores, defaultHidden }:
+     {nombreInput : string, txtLabel : string, arregloDirectores : UsuarioNombre[], defaultHidden : boolean}){
     return (
-        <div className="contenedor-input">
+        <div className="contenedor-input" id={"container_"+nombreInput} hidden={defaultHidden}>
             <label className="text-right w-1/2" htmlFor={nombreInput}>{txtLabel}:</label>
             <select className="ml-1 text-left w-1/2 input" name={nombreInput} id={nombreInput}>
-                    <option value="0" className="italic">Indique algún docente registrado como director</option>
-                    
+                    <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
                     {arregloDirectores.map( (director) => (
                         <option key={director.id} value={director.id} >{director.apellidos} {director.Nombres}</option>
                     ) ) }
