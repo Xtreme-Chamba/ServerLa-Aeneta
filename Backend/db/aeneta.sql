@@ -1,4 +1,4 @@
-DROP SCHEMA IF EXISTS `aeneta`;
+DROP DATABASE IF EXISTS `aeneta`;
 CREATE DATABASE  IF NOT EXISTS `aeneta` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `aeneta`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
@@ -34,7 +34,7 @@ CREATE TABLE `autores_documento` (
   KEY `fk_usuario_autor_idx` (`id_autor`),
   CONSTRAINT `fk_documento_autor` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `autores_documento` (
 
 LOCK TABLES `autores_documento` WRITE;
 /*!40000 ALTER TABLE `autores_documento` DISABLE KEYS */;
-INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3),(4,3,4);
+INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3),(4,3,4),(5,2,1);
 /*!40000 ALTER TABLE `autores_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,11 +208,11 @@ DROP TABLE IF EXISTS `director_externo`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `director_externo` (
   `id_director_externo` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+  `nombres` varchar(45) NOT NULL,
   `apellidos` varchar(45) NOT NULL,
   `especialidad` varchar(45) NOT NULL,
   PRIMARY KEY (`id_director_externo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,6 +221,7 @@ CREATE TABLE `director_externo` (
 
 LOCK TABLES `director_externo` WRITE;
 /*!40000 ALTER TABLE `director_externo` DISABLE KEYS */;
+INSERT INTO `director_externo` VALUES (1,'No me lo se','Godoy y algo','tampoco me la se'),(2,'Otro','otro ejemplo','Otrología'),(3,'Benito','Camelo','Masajista'),(4,'NO ','se me ocurre','nada'),(5,'El Dengé','esta Fuertisimo','Insectólogo');
 /*!40000 ALTER TABLE `director_externo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +523,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_anio_puntual_pagina_sencilla`( anio_busqueda INT )
+CREATE PROCEDURE `busqueda_anio_puntual_pagina_sencilla`( anio_busqueda INT )
 BEGIN
 	SELECT COUNT(*) as total FROM aeneta.metadatos_cortados_documento
 	where anio = anio_busqueda and revisado = 1  and revision = 1;
@@ -542,7 +543,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_anio_puntual_sencilla`( anio_busqueda INT, cantidad_resultados int, salto int )
+CREATE PROCEDURE `busqueda_anio_puntual_sencilla`( anio_busqueda INT, cantidad_resultados int, salto int )
 BEGIN
 	SELECT * FROM aeneta.metadatos_cortados_documento
 	where anio = anio_busqueda and revisado = 1 and revision = 1
@@ -564,7 +565,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_anio_rango_secilla`(anio_inicio int, anio_final int, cantidad_resultados int, salto int)
+CREATE PROCEDURE `busqueda_anio_rango_secilla`(anio_inicio int, anio_final int, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM aeneta.metadatos_cortados_documento
 	where anio >= anio_inicio and anio <= anio_final and revisado = 1 and revision = 1
@@ -586,7 +587,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_autor_pagina_sencilla`( cadena_busqueda text )
+CREATE PROCEDURE `busqueda_autor_pagina_sencilla`( cadena_busqueda text )
 BEGIN
 	SELECT count(*) as total FROM aeneta.metadatos_cortados_documento
 	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1 and revision = 1;
@@ -606,7 +607,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_autor_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int )
+CREATE PROCEDURE `busqueda_autor_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int )
 BEGIN
 	SELECT * FROM aeneta.metadatos_cortados_documento
 	where INSTR(CONCAT_WS(" ", Nombres, Apellidos), cadena_busqueda) > 0 and revisado = 1 and revision = 1
@@ -628,7 +629,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`userneta`@`localhost` PROCEDURE `busqueda_no_revisado`(cantidad_resultados int, salto int)
+CREATE PROCEDURE `busqueda_no_revisado`(cantidad_resultados int, salto int)
 BEGIN
 	select * from metadatos_cortados_documento where revisado = 0
     limit cantidad_resultados offset salto;
@@ -648,7 +649,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`userneta`@`localhost` PROCEDURE `busqueda_no_revisado_pagina`()
+CREATE PROCEDURE `busqueda_no_revisado_pagina`()
 BEGIN
 	select COUNT(*) as total from metadatos_cortados_documento where revisado = 0;
 END ;;
@@ -667,7 +668,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_palabras_clave_pagina_sencilla`( cadena_busqueda text)
+CREATE PROCEDURE `busqueda_palabras_clave_pagina_sencilla`( cadena_busqueda text)
 BEGIN
 	SELECT COUNT(*) as total FROM aeneta.metadatos_cortados_documento
 	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1 and revision = 1;
@@ -687,7 +688,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_palabras_clave_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
+CREATE PROCEDURE `busqueda_palabras_clave_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM aeneta.metadatos_cortados_documento
 	where INSTR(Palabras_clave, cadena_busqueda) > 0 and revisado = 1 and revision = 1
@@ -710,7 +711,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_titulo_pagina_sencilla`( cadena_busqueda text)
+CREATE PROCEDURE `busqueda_titulo_pagina_sencilla`( cadena_busqueda text)
 BEGIN
 	SELECT COUNT(*) as total FROM aeneta.metadatos_cortados_documento
 	where INSTR(titulo, cadena_busqueda) > 0 and revisado = 1  and revision = 1;
@@ -730,7 +731,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `busqueda_titulo_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
+CREATE PROCEDURE `busqueda_titulo_sencilla`( cadena_busqueda text, cantidad_resultados int, salto int)
 BEGIN
 	SELECT * FROM aeneta.metadatos_cortados_documento
 	where INSTR(titulo, cadena_busqueda) > 0 and revisado = 1 and revision = 1
@@ -753,7 +754,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `consultar_revision_documento`(id_doc int)
+CREATE PROCEDURE `consultar_revision_documento`(id_doc int)
 BEGIN
 	SELECT * from revision_documento where id_documento = id_doc limit 1;
 END ;;
@@ -772,7 +773,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int, mesTT varchar(15), numTT int)
+CREATE PROCEDURE `guardar_documento`(titulo varchar(45), palabras_clave varchar(45), resumen text, anio YEAR, id_tipo int, id_unidad int, url text, id_user int, mesTT varchar(15), numTT int)
 BEGIN
 DECLARE id_ultimo int;
 INSERT INTO `aeneta`.`documento`
@@ -823,7 +824,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `mandar_revision_documento`(juicio bit, notas TEXT, id_doc int)
+CREATE PROCEDURE `mandar_revision_documento`(juicio bit, notas TEXT, id_doc int)
 BEGIN
 	#indicar que el doucmento ya fue revisado
 	UPDATE documento 
@@ -848,7 +849,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`userneta`@`localhost` PROCEDURE `obtenerRevisionYTitulo`(id_doc_input int)
+CREATE PROCEDURE `obtenerRevisionYTitulo`(id_doc_input int)
 BEGIN
 	select id_revision, id_documento, notas_revision, estado_revision, titulo 
 	from revision_documento inner join documento on (documento.idDocumento = revision_documento.id_documento)
@@ -870,7 +871,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `registro_usuario`(email varchar(255), pass TEXT, tipo int, especialidad varchar(45), nombres TEXT, apellidos TEXT)
+CREATE PROCEDURE `registro_usuario`(email varchar(255), pass TEXT, tipo int, especialidad varchar(45), nombres TEXT, apellidos TEXT)
 BEGIN
 INSERT INTO `aeneta`.`usuario`
 (`email`,
@@ -908,7 +909,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `metadatos_cortados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`año` AS `anio`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado`,`revision_documento`.`estado_revision` AS `revision` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) left join `revision_documento` on((`revision_documento`.`id_documento` = `documento`.`idDocumento`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -926,7 +927,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `metadatos_detallados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`Resumen` AS `Resumen`,`documento`.`año` AS `anio`,`documento`.`url_archivo` AS `url`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`catalogo_unidades_academicas`.`unidad_academica` AS `unidad_academica`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `catalogo_unidades_academicas` on((`documento`.`id_unidad_academica` = `catalogo_unidades_academicas`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -941,4 +942,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-24 15:56:15
+-- Dump completed on 2024-06-14 18:29:51

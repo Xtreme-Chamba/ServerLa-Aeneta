@@ -33,8 +33,8 @@ export default function Page(){
       }
     }, [])
 
-    const btnToogleInterno = document.getElementById("btn-toogle-dir-interno") as HTMLElement;
-    const btnToogleExterno = document.getElementById("btn-toogle-dir-externo") as HTMLElement;
+    const btnToogleInterno = document.getElementById("btn-toogle-dir-interno") as HTMLButtonElement;
+    const btnToogleExterno = document.getElementById("btn-toogle-dir-externo") as HTMLButtonElement;
 
     if(btnToogleInterno && listaDirectores)
         btnToogleInterno?.addEventListener('click', toogleInterno);

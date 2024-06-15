@@ -29,3 +29,13 @@ export const getAllNombresDocentes = async (req, res) =>{
     const result = await pool.query("select id_director_externo, nombres, apellidos from director_externo");
     res.json(result[0]);
   };
+
+  export const postAddNewDirectorExterno = async (req, res) => {
+    console.log(req.body)
+    const {Nombres, apellidos, especialidad } = req.body;
+    const result = await pool.query("INSERT INTO director_externo (nombres, apellidos, especialidad) VALUES (?,?,?)",
+      [ Nombres, apellidos, especialidad ] );
+    //al venir de procemdiento almacenado, por como lo trae la libería, hay que acceder hasta [0][0][0]
+    console.log(result[0].affectedRows);
+    res.json(result[0].affectedRows);
+  };
