@@ -4,8 +4,10 @@ export const getMetadatosDocumento = async (req, res) =>{
   const { idDoc } = req.body;
   const result = await pool.query("select * from metadatos_detallados_documento WHERE id = ? limit 1",
   [ idDoc ]);
-  console.log(result[0]);
-  res.json(result[0]);
+  const rev2 = Boolean(result[0][0].revisado[0]);
+  result[0][0].revisado = rev2;
+  //console.log(result[0][0]);
+  res.json(result[0][0]);
 };
 
 export const getRevisionDocumento = async (req, res) => {
@@ -16,3 +18,11 @@ export const getRevisionDocumento = async (req, res) => {
   result[0][0][0].estado_revision = rev2;
   res.json(result[0][0][0]);
 };
+
+export const postAddRevisionDocumento = async (req, res) => {
+  console.log(req.body)
+  const {id_documento, estado_revision,  notas_revision} = req.body;
+  const result = await pool.query("INSERT INTO revision_documento (id_documento, estado_revision, notas_revision) VALUES (?,?,?)",
+    [id_documento, estado_revision, notas_revision]);
+
+}

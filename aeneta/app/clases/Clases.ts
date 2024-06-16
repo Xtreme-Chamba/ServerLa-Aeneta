@@ -58,6 +58,13 @@ export type Revision = {
     titulo : string
 };
 
+//este solo sirve para un INSERT, ya que solo almacena los datos que se mandan a la BD de la tabla revision_documento
+export type EsqueletoRevision= {
+    id_documento : number,
+    notas_revision : string,
+    estado_revision : boolean
+};
+
 //definición futura para las referencias (no creo que llegemos a implementarlas)
 export type ReferenciaBibliografica = {
     id_referencia : number,
