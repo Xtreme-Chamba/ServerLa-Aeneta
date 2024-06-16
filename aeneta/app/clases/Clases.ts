@@ -7,7 +7,8 @@ export type DocumentoLigero = {
     tipo : "Tesis" | "Proyecto Investigación" | "Curricular (TT)" | "Propuesta",
     Nombres: string, 
     Apellidos: string, 
-    revisado: boolean
+    revisado: boolean,
+    revision: boolean
 };
 
 //metadatos completos
@@ -20,8 +21,8 @@ export type DocumentoCompleto = {
     url: string, 
     tipo : "Tesis" | "Proyecto Investigación" | "Curricular (TT)" | "Propuesta", 
     unidad_academica : string, 
-    Nombres: string, 
-    Apellidos: string, 
+    nombres: string, 
+    apellidos: string, 
     revisado: boolean
 };
 
@@ -32,20 +33,20 @@ export type Usuario = {
     password : BinaryData, //reotrna un VARBINARY(200), así que uno similar debe de ser
     tipo : "alumno" | "egresado" | "docente" | "revisor", //con un JOIN se debería de obtener de la query el nombre del campo en vez de id_tipo
     especialidad : string | null,
-    Nombres: string,
+    nombres: string,
     apellidos: string
 };
 
 //obtener usuario (solo su id, nombre y apellidos)
 export type UsuarioNombre = {
     id : number,
-    Nombres : string,
+    nombres : string,
     apellidos : string
 };
 //nombre, apellido y especialidad
 export type UsuarioEspecialidad = {
     id : number,
-    Nombres : string,
+    nombres : string,
     apellidos : string,
     especialidad : string
 };

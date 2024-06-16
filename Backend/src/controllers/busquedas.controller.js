@@ -11,6 +11,10 @@ export const postBusquedaTituloSimple = async (req, res) => {
   [
     terminoBusqueda, numResultados, salto 
   ]);
+  result[0][0].map((resultado) => {
+    resultado.revision = Boolean(resultado.revision[0]);
+    resultado.revisado = Boolean(resultado.revisado[0]);
+  });
   res.json(result[0][0]);
 };
 
@@ -33,6 +37,10 @@ export const postBusquedaAutorSimple = async (req, res) => {
   const result = await pool.query("call busqueda_autor_sencilla(?,?,?)", [
     terminoBusqueda, numResultados, salto 
   ]);
+  result[0][0].map((resultado) => {
+    resultado.revision = Boolean(resultado.revision[0]);
+    resultado.revisado = Boolean(resultado.revisado[0]);
+  });
   res.json(result[0][0]);
   };
 
@@ -56,6 +64,10 @@ export const postBusquedaPalabrasClaveSimple = async (req, res) => {
   [
     terminoBusqueda, numResultados, salto 
   ]);
+  result[0][0].map((resultado) => {
+    resultado.revision = Boolean(resultado.revision[0]);
+    resultado.revisado = Boolean(resultado.revisado[0]);
+  });
   res.json(result[0][0]);
 };
 
@@ -78,6 +90,10 @@ export const postBusquedaAnioPuntualSimple = async (req, res) => {
   const result = await pool.query("call busqueda_anio_puntual_sencilla(?,?,?)", [
     terminoBusqueda, numResultados, salto 
   ]);
+  result[0][0].map((resultado) => {
+    resultado.revision = Boolean(resultado.revision[0]);
+    resultado.revisado = Boolean(resultado.revisado[0]);
+  });
   res.json(result[0][0]);
 };
 
@@ -100,6 +116,10 @@ export const postBusquedaAnioRangoSimple = async (req, res) => {
   const result = await pool.query("call busqueda_anio_rango_sencilla(?,?,?,?)", [
     anio_inicio,anio_final, numResultados, salto 
   ]);
+  result[0][0].map((resultado) => {
+    resultado.revision = Boolean(resultado.revision[0]);
+    resultado.revisado = Boolean(resultado.revisado[0]);
+  });
   res.json(result[0][0]);
 };
 

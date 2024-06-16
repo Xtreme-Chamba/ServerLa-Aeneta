@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `aeneta`;
+DROP SCHEMA IF EXISTS `aeneta`;
 CREATE DATABASE  IF NOT EXISTS `aeneta` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `aeneta`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
@@ -34,7 +34,7 @@ CREATE TABLE `autores_documento` (
   KEY `fk_usuario_autor_idx` (`id_autor`),
   CONSTRAINT `fk_documento_autor` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_usuario_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `autores_documento` (
 
 LOCK TABLES `autores_documento` WRITE;
 /*!40000 ALTER TABLE `autores_documento` DISABLE KEYS */;
-INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3),(4,3,4),(5,2,1);
+INSERT INTO `autores_documento` VALUES (1,1,1),(2,3,2),(3,1,3),(4,3,4),(5,2,1),(6,1,5);
 /*!40000 ALTER TABLE `autores_documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `detalleproyecto` (
   PRIMARY KEY (`idDetalleProyecto`),
   KEY `fk_proyecto_documento_idx` (`id_documento`),
   CONSTRAINT `fk_proyecto_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +141,7 @@ CREATE TABLE `detalleproyecto` (
 
 LOCK TABLES `detalleproyecto` WRITE;
 /*!40000 ALTER TABLE `detalleproyecto` DISABLE KEYS */;
-INSERT INTO `detalleproyecto` VALUES (1,2);
+INSERT INTO `detalleproyecto` VALUES (1,2),(2,5);
 /*!40000 ALTER TABLE `detalleproyecto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +305,7 @@ CREATE TABLE `documento` (
   KEY `fk_documento_unidad_academica_idx` (`id_unidad_academica`),
   CONSTRAINT `fk_documento_tipo_documento` FOREIGN KEY (`id_tipo_documento`) REFERENCES `catalogo_tipos_documento` (`id_catalogo`),
   CONSTRAINT `fk_documento_unidad_academica` FOREIGN KEY (`id_unidad_academica`) REFERENCES `catalogo_unidades_academicas` (`id_catalogo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +314,7 @@ CREATE TABLE `documento` (
 
 LOCK TABLES `documento` WRITE;
 /*!40000 ALTER TABLE `documento` DISABLE KEYS */;
-INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/'),(4,'Prueba no revisado','No revisado pruebas','No debe de aparecer un búsquedas normales, ya que no ha sido revisado',2024,1,24,_binary '\0','/tesis/waw');
+INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/'),(4,'Prueba no revisado','No revisado pruebas','No debe de aparecer un búsquedas normales, ya que no ha sido revisado',2024,1,24,_binary '','/tesis/waw'),(5,'Prueba que funciona','prueba, ejecucion, trikitrakatelas','prueba manual de revision de que funciona el trigger',2023,2,12,_binary '','/');
 /*!40000 ALTER TABLE `documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,8 +396,8 @@ SET character_set_client = utf8mb4;
  1 AS `Palabras_clave`,
  1 AS `anio`,
  1 AS `tipo`,
- 1 AS `Nombres`,
- 1 AS `Apellidos`,
+ 1 AS `nombres`,
+ 1 AS `apellidos`,
  1 AS `revisado`,
  1 AS `revision`*/;
 SET character_set_client = @saved_cs_client;
@@ -419,8 +419,8 @@ SET character_set_client = utf8mb4;
  1 AS `url`,
  1 AS `tipo`,
  1 AS `unidad_academica`,
- 1 AS `Nombres`,
- 1 AS `Apellidos`,
+ 1 AS `nombres`,
+ 1 AS `apellidos`,
  1 AS `revisado`*/;
 SET character_set_client = @saved_cs_client;
 
@@ -466,7 +466,7 @@ CREATE TABLE `revision_documento` (
   PRIMARY KEY (`id_revision`),
   KEY `fk_revision_documento_idx` (`id_documento`),
   CONSTRAINT `fk_revision_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -478,6 +478,23 @@ LOCK TABLES `revision_documento` WRITE;
 INSERT INTO `revision_documento` VALUES (1,1,'Perfecto',_binary ''),(2,2,'Esta horrible',_binary '\0'),(3,3,'ta buenardo',_binary '');
 /*!40000 ALTER TABLE `revision_documento` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017*/ /*!50003 TRIGGER `revision_documento_AFTER_INSERT` AFTER INSERT ON `revision_documento` FOR EACH ROW BEGIN
+	UPDATE documento set revisado = 1 where documento.idDocumento = NEW.id_documento limit 1;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `usuario`
@@ -492,8 +509,8 @@ CREATE TABLE `usuario` (
   `password` varbinary(255) NOT NULL,
   `id_tipo_usuario` tinyint NOT NULL,
   `especialidad` varchar(45) DEFAULT NULL,
-  `Nombres` text NOT NULL,
-  `Apellidos` text NOT NULL,
+  `nombres` text NOT NULL,
+  `apellidos` text NOT NULL,
   PRIMARY KEY (`id_usuario`),
   KEY `fk_usuario_a_tipo_usaurio_idx` (`id_tipo_usuario`),
   CONSTRAINT `fk_usuario_a_tipo_usaurio` FOREIGN KEY (`id_tipo_usuario`) REFERENCES `catalogo_tipos_usuario` (`id_catalogo`)
@@ -878,8 +895,8 @@ INSERT INTO `aeneta`.`usuario`
 `password`,
 `id_tipo_usuario`,
 `especialidad`,
-`Nombres`,
-`Apellidos`)
+`nombres`,
+`apellidos`)
 VALUES
 (email,
 SHA2(CONCAT(email, pass),'256'),
@@ -910,7 +927,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 SQL SECURITY DEFINER */
-/*!50001 VIEW `metadatos_cortados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`año` AS `anio`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado`,`revision_documento`.`estado_revision` AS `revision` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) left join `revision_documento` on((`revision_documento`.`id_documento` = `documento`.`idDocumento`))) */;
+/*!50001 VIEW `metadatos_cortados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`año` AS `anio`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`usuario`.`nombres` AS `nombres`,`usuario`.`apellidos` AS `apellidos`,`documento`.`revisado` AS `revisado`,`revision_documento`.`estado_revision` AS `revision` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) left join `revision_documento` on((`revision_documento`.`id_documento` = `documento`.`idDocumento`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -928,7 +945,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 SQL SECURITY DEFINER */
-/*!50001 VIEW `metadatos_detallados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`Resumen` AS `Resumen`,`documento`.`año` AS `anio`,`documento`.`url_archivo` AS `url`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`catalogo_unidades_academicas`.`unidad_academica` AS `unidad_academica`,`usuario`.`Nombres` AS `Nombres`,`usuario`.`Apellidos` AS `Apellidos`,`documento`.`revisado` AS `revisado` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `catalogo_unidades_academicas` on((`documento`.`id_unidad_academica` = `catalogo_unidades_academicas`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) */;
+/*!50001 VIEW `metadatos_detallados_documento` AS select `documento`.`idDocumento` AS `id`,`documento`.`Titulo` AS `Titulo`,`documento`.`Palabras_clave` AS `Palabras_clave`,`documento`.`Resumen` AS `Resumen`,`documento`.`año` AS `anio`,`documento`.`url_archivo` AS `url`,`catalogo_tipos_documento`.`tipo_documento` AS `tipo`,`catalogo_unidades_academicas`.`unidad_academica` AS `unidad_academica`,`usuario`.`nombres` AS `nombres`,`usuario`.`apellidos` AS `apellidos`,`documento`.`revisado` AS `revisado` from ((((`documento` join `catalogo_tipos_documento` on((`documento`.`id_tipo_documento` = `catalogo_tipos_documento`.`id_catalogo`))) join `catalogo_unidades_academicas` on((`documento`.`id_unidad_academica` = `catalogo_unidades_academicas`.`id_catalogo`))) join `autores_documento` on((`documento`.`idDocumento` = `autores_documento`.`id_documento`))) join `usuario` on((`autores_documento`.`id_autor` = `usuario`.`id_usuario`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -942,4 +959,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-14 18:29:51
+-- Dump completed on 2024-06-15 22:19:54

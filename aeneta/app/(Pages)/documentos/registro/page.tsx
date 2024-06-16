@@ -182,7 +182,7 @@ function ListaDirectores({nombreInput,txtLabel, arregloDirectores, defaultHidden
             <select className="ml-1 text-left w-1/2 input" name={nombreInput} id={nombreInput}>
                     <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
                     {arregloDirectores.map( (director) => (
-                        <option key={director.id} value={director.id} >{director.apellidos} {director.Nombres}</option>
+                        <option key={director.id} value={director.id} >{director.apellidos} {director.nombres}</option>
                     ) ) }
             </select>
         </div>

@@ -8,7 +8,7 @@ export default function Page(){
     //lo normal son los internos
     const [directorExterno, setDirector] = useState<UsuarioEspecialidad>({
         id : 0, //se va asignar con el auto_increment
-        Nombres : '',
+        nombres : '',
         apellidos: '',
         especialidad : ''
     });
@@ -53,8 +53,8 @@ export default function Page(){
         </div>
         <form method="POST" onSubmit={handleSubmit} className="w-fit min-w-min flex flex-col justify-center align-center m-auto mt-2">
             <div className="contenedor-input">
-                <label htmlFor="Nombres" className="text-right w-1/2">Nombre(s) del director:</label>
-                <input className="input ml-1 text-left w-1/2" name="Nombres" id="Nombres" onChange={handleChange} type="text" placeholder="Escriba el Nombres aquí..." />
+                <label htmlFor="nombres" className="text-right w-1/2">Nombre(s) del director:</label>
+                <input className="input ml-1 text-left w-1/2" name="nombres" id="nombres" onChange={handleChange} type="text" placeholder="Escriba el Nombres aquí..." />
             </div>
            
             <div className="contenedor-input">
