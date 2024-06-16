@@ -1,13 +1,17 @@
 'use client'
 import { UsuarioNombre } from "@/app/clases/Clases";
 import { FaPlusSquare } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import clsx from "clsx";
 
 export default function Page(){
     //lo normal son los internos
     const [listaDirectores, setListaDirectores] = useState<UsuarioNombre[]>([]);
     //ya luego vemos lo de los directores externos
     const [listaDirectoresExternos, setListaDirectoresExt] = useState<UsuarioNombre[]>([]);
+
+    //const refBtnToogleInterno = useRef<HTMLButtonElement>(null);
+    //const refBtnToogleExterno = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
       try{
@@ -32,26 +36,23 @@ export default function Page(){
         console.log(error)
       }
     }, [])
+    /*
+    if(refBtnToogleInterno && listaDirectores)
+        refBtnToogleInterno?.addEventListener('click', toogleInterno);
 
-    const btnToogleInterno = document.getElementById("btn-toogle-dir-interno") as HTMLButtonElement;
-    const btnToogleExterno = document.getElementById("btn-toogle-dir-externo") as HTMLButtonElement;
-
-    if(btnToogleInterno && listaDirectores)
-        btnToogleInterno?.addEventListener('click', toogleInterno);
-
-    if(btnToogleExterno && listaDirectoresExternos)
-        btnToogleExterno?.addEventListener('click', toogleExterno);
-
+    if(refBtnToogleExterno && listaDirectoresExternos)
+        refBtnToogleExterno?.addEventListener('click', toogleExterno);
+*/
     
     function toogleInterno() {
         const selectInternos = document.getElementById("container_director-2-int");
-        selectInternos?.classList.toggle("hidden");
+        selectInternos?.classList.toggle("forzar-oculto");
         return ;
     }
 
     function toogleExterno() {
         const selectExternos = document.getElementById("container_director-2-ext");
-        selectExternos?.classList.toggle("hidden");
+        selectExternos?.classList.toggle("forzar-oculto");
     }
 
     return (
@@ -73,10 +74,10 @@ export default function Page(){
             
             {/**Meter funcionalidad para agregar director interno, o agregar director externo */}
             <div className="flex flex-row align-middle items-center text-center justify-center">
-                <button className="btn-2" type="button" id="btn-toogle-dir-interno" >{/**por definir estilos de btn-2 */}
+                <button className="btn-2" type="button" id="btn-toogle-dir-interno"  onClick={toogleInterno}>{/**por definir estilos de btn-2 */}
                     <FaPlusSquare className="align-middle flex items-center"/>Nuevo director INTERNO
                 </button>
-                <button className="btn-2" type="button" id="btn-toogle-dir-externo" >
+                <button className="btn-2" type="button" id="btn-toogle-dir-externo"  onClick={toogleExterno}>
                     <FaPlusSquare className="align-middle flex items-center"/>Nuevo director EXTERNO
                 </button>
             </div>
@@ -176,17 +177,20 @@ function SelectTipoDocumento(){
 
 function ListaDirectores({nombreInput,txtLabel, arregloDirectores, defaultHidden }:
      {nombreInput : string, txtLabel : string, arregloDirectores : UsuarioNombre[], defaultHidden : boolean}){
-    return (
-        <div className="contenedor-input" id={"container_"+nombreInput} hidden={defaultHidden}>
+    let classNameDivSelect = clsx('contenedor-input ',
+      {
+        'forzar-oculto': defaultHidden == true
+      });
+        return (
+        <div className={classNameDivSelect} id={"container_"+nombreInput} >
             <label className="text-right w-1/2" htmlFor={nombreInput}>{txtLabel}:</label>
             <select className="ml-1 text-left w-1/2 input" name={nombreInput} id={nombreInput}>
                     <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
                     {arregloDirectores.map( (director) => (
                         <option key={director.id} value={director.id} >{director.apellidos} {director.nombres}</option>
-                    ) ) }
+                    ))}
             </select>
-        </div>
-        
+        </div>  
 
     );
 }

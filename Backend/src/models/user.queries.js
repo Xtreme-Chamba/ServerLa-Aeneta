@@ -27,7 +27,6 @@ export const getAllNombresDocentes = async (req, res) =>{
 
   export const getAllNombresDirectoresExternos = async (req, res) =>{
     const result = await pool.query("select id_director_externo, nombres, apellidos from director_externo");
-    console.log(result[0]);
     res.json(result[0]);
   };
 

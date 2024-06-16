@@ -27,3 +27,6 @@ body{
 .btn-2{
   @apply w-fit p-2 bg-secundario rounded-md self-center font-normal flex flex-row align-middle m-auto justify-center
 }
+.forzar-oculto{
+  display: none !important
+}
