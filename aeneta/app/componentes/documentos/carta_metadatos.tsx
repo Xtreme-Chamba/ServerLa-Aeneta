@@ -46,7 +46,7 @@ export default function CartaMetadatos({ id }: { id: number }) {
 
     return (
     <main className=''>
-      <div className='w-full max-w-2xl border-2 border-black mx-auto rounded-2xl' key = {documento.id} >
+      <div className='px-8 w-full max-w-2xl border-2 border-black mx-auto rounded-2xl' key = {documento.id} >
             <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
 
             <div className='grid gap-1'>
@@ -89,15 +89,9 @@ export default function CartaMetadatos({ id }: { id: number }) {
                 <p className='font-sans text-gray-500 ml-3'>{documento.Resumen}</p>
             </div>
 
-            <div className='flex justify-between'>
+            <div className='flex justify-center py-4'>
               <LinkVizualizacionDocumento id={Number(documento.id)}/>
 
-              <button
-              onClick={handleClick}
-              className="w-fit p-2 bg-primario rounded-lg self-center font-semibold m-5"
-              >
-              Regresar a incio
-              </button>
             </div>
 
         </div>

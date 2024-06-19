@@ -10,14 +10,32 @@ export default function BarraNavegacion () {
     const palabraruta: { [key: string]: string } = {
       '/' : 'Busqueda de documento',
       '/documentos/registro' : 'Subir documento academico',
-      '/documento/{id}/metadatos' : 'Metadatos del documento',
+      // '/documento/{id}/metadatos' : 'Metadatos del documento',
       '/revisiones/documentos/busqueda' : 'Documentos sin revisar',
-      '/revisiones/documentos/{id}/consultar' : 'Status de documento',
-      '/revisiones/documentos/{id}/revisar' : 'Revision de documento academico',
+      // '/revisiones/documentos/{id}/consultar' : 'Status de documento',
+      // '/revisiones/documentos/{id}/revisar' : 'Revision de documento academico',
       'usuarios/registro/externos' : 'Registrar nuevo director externo',
     };
 
-    const palabraactual = palabraruta[pathname] || 'pagina';
+    const obteneractual = (path: string) => {
+      const match = path.match(/^\/documentos\/\d+\/metadatos$/);
+      if (match) {
+        return 'Metadatos del documento'
+      }
+      const match2 = path.match(/^\/revisiones\/documentos\/\d+\/consultar$/);
+      if(match2){
+        return 'Status del documento'
+      }
+      const match3 = path.match(/^\/revisiones\/documentos\/\d+\/revisar$/);
+      if(match3){
+        return 'Status del documento'
+      }
+      
+
+      return palabraruta[path] || 'pagina'
+    }
+
+    const palabraactual = obteneractual(pathname) || 'pagina';
 
     return (
         <header className="bg-primario px-4 lg:px-6 h-14 flex items-center justify-between">
@@ -26,16 +44,16 @@ export default function BarraNavegacion () {
           <span className="text-2xl font-bold">Server la-Aeneta</span>
         </Link>
 
-        <h1 className="fuente-titulo">{palabraactual}</h1>
+        <h1 className="text-2xl font-bold">{palabraactual}</h1>
 
         <nav className="hidden md:flex gap-4">
-          <Link href="#" className="text-lg font-medium hover:underline" >
+          <Link href="#" className="text-lg font-bold hover:underline" prefetch={false}>
             Acerca de
           </Link>
-          <Link href="#" className="text-lg font-medium hover:underline" >
+          <Link href="#" className="text-lg font-bold hover:underline" prefetch={false}>
             Buscar 
           </Link>
-          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
+          <Link href="#" className="text-lg font-bold hover:underline">
             Iniciar sesion
           </Link>
         </nav>
