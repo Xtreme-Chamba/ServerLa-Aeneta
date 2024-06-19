@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react";
-import { LinkMetadatos } from "../botones_links/botones";
+import { LinkMetadatos, LinkRevision } from "../botones_links/botones";
 import { DocumentoLigero } from "@/app/clases/Clases";
 
 export default async function Table({
@@ -31,12 +31,8 @@ export default async function Table({
         });
         //una opción es: const urlencoded = new URLSearchParams({
         const data = await response.json();
-        const documentosFormateado= data.map((documento : {id: number, Titulo : string, Palabras_clave : string, anio: number, tipo : string, Nombres: string, Apellidos: string, revisado: Buffer}) => ({
-          ...documento,
-          revisado: Boolean(documento.revisado[0]) // Convertir el Buffer a un valor booleano
-        }));
         console.log(data);
-        setDocumentos(documentosFormateado);
+        setDocumentos(data);
       }
       fetchResultadosBusqueda();
       
@@ -54,29 +50,30 @@ export default async function Table({
   }
   
   return (
-    <div className="mt-6 rounded-md gap-2">
+    <div className="p-6 rounded-md gap-2">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 flex flex-col gap-2">
           
             {documentos.map(( documento ) => (
               <div
                 key={documento.id}
-                className="p-4 bg-secundario rounded-md">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <LinkMetadatos titulo={documento.Titulo} id={documento.id} />
-                    <p className="text-m">{documento.Nombres} {documento.Apellidos}</p>
-                  </div>
+                className="p-4 bg-white border-4 border-primario rounded-md">
+                <div className="items-center text-center justify-between">
+                    <LinkRevision titulo={documento.Titulo} id={documento.id}/>  
+                    {/* cambiar a revision */}
+                    <p className="text-m mb-4">{documento.Nombres} {documento.Apellidos}</p>
                   {/*<InvoiceStatus status={invoice.status} />*/}
                 </div>
-                <div className="flex w-full items-center justify-between pt-4">
-                  <div>
-                    <p className="font-medium">
-                      Palabras clave: {documento.Palabras_clave}
+                {/* <div className="border-t-4"></div> */}
+                  <p className="font-medium">Palabras clave: </p>
+                  
+                    <p>
+                      {documento.Palabras_clave.split(' ').map((palabra, index) =>(
+                        <li key={index}>{palabra}</li>
+                      ))}  
                     </p>
-                    <p>{documento.revisado}</p>
-                  </div>
-                </div>
+                    
+                    {/* <p>{documento.revisado}</p> */}
               </div>
             ))}
 

@@ -314,7 +314,7 @@ CREATE TABLE `documento` (
 
 LOCK TABLES `documento` WRITE;
 /*!40000 ALTER TABLE `documento` DISABLE KEYS */;
-INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/'),(4,'Prueba no revisado','No revisado pruebas','No debe de aparecer un búsquedas normales, ya que no ha sido revisado',2024,1,24,_binary '','/tesis/waw'),(5,'Prueba que funciona','prueba, ejecucion, trikitrakatelas','prueba manual de revision de que funciona el trigger',2023,2,12,_binary '','/');
+INSERT INTO `documento` VALUES (1,'Tesis prueba','prueba tesis unitaria','una prueba de que este procedimiento almacenado funcione',2024,1,6,_binary '','/'),(2,'Prueba dos','Prueba proyecto','Esperemos que funcione',2024,2,10,_binary '','/waos/'),(3,'Prueba tres','Prueba TT IA','De lo ultimo',2024,3,20,_binary '','/waos/'),(4,'Prueba no revisado','No revisado pruebas','No debe de aparecer un búsquedas normales, ya que no ha sido revisado',2024,1,24,_binary '\0','/tesis/waw'),(5,'Prueba que funciona','prueba, ejecucion, trikitrakatelas','prueba manual de revision de que funciona el trigger',2023,2,12,_binary '\0','/');
 /*!40000 ALTER TABLE `documento` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -466,7 +466,7 @@ CREATE TABLE `revision_documento` (
   PRIMARY KEY (`id_revision`),
   KEY `fk_revision_documento_idx` (`id_documento`),
   CONSTRAINT `fk_revision_documento` FOREIGN KEY (`id_documento`) REFERENCES `documento` (`idDocumento`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

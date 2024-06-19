@@ -3,10 +3,12 @@ import { DocumentoCompleto } from "@/app/clases/Clases";
 import { notFound } from "next/navigation";
 import { useState, useEffect } from "react";
 import { LinkVizualizacionDocumento } from "../botones_links/botones";
+import { FaAngleRight } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 export default function CartaMetadatos({ id }: { id: number }) {
     const [documento, setDocumento] = useState<DocumentoCompleto>();
-
+    const router = useRouter();
     useEffect(() => {
         try {
             const peticion = {
@@ -31,8 +33,11 @@ export default function CartaMetadatos({ id }: { id: number }) {
           } catch (error) {
             console.log(error)
           }
-    }, [id])
+    }, [id]);
 
+    const handleClick = () => {
+      router.push('/busqueda');
+    };
     if(documento == undefined || documento == null){
         return (
             <div className="align-middle items-center text-center justify-between mt-2">No se logro obtener resultados para el documento con id {id}</div>
@@ -40,31 +45,62 @@ export default function CartaMetadatos({ id }: { id: number }) {
     }
 
     return (
-        <div className='mx-auto mt-2 w-fit border rounded-2xl flex flex-col p-2' key = {documento.id} >
+    <main className=''>
+      <div className='w-full max-w-2xl border-2 border-black mx-auto rounded-2xl' key = {documento.id} >
             <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
-            <div className='mt-3 my-1 flex px-2 items-center'>
-                <h3 className="font-bold text-xl">Palabras clave : </h3>
-                <div className='font-semibold'>{documento.Palabras_clave}</div>
-            </div>
-            <div className='mt-3 my-1 flex px-2 items-center'>
-                <div className="font-bold text-xl">Unidad academica : </div>
-                <div className='font-semibold'>{documento.unidad_academica}</div>
-            </div>
-            <div className='mt-3 my-1 flex px-2 items-center'>
-                <div className="font-bold text-xl">Autor : </div>
-                <div className='font-semibold'>{documento.nombres} {documento.apellidos}</div>
+
+            <div className='grid gap-1'>
+              <div className='flex items-center gap-2'>
+              <FaAngleRight/>
+                <label className='text-xl font-bold'>Palabras clave</label>
+              </div>
+                <p className='font-sans text-gray-500 ml-3'>{documento.Palabras_clave}</p>
             </div>
 
-            <div className='mt-3 my-1 flex px-2 items-center'>
-                <div className="font-bold text-xl">Tipo de documento : </div>
-                <div className='font-semibold'>{documento.tipo}</div>
+            <div className='grid gap-1'>
+              <div className='flex items-center gap-2'>
+              <FaAngleRight/>
+                <label className='text-xl font-bold'>Unidad academica</label>
+              </div>
+                <p className='font-sans text-gray-500 ml-3'>{documento.unidad_academica}</p>
             </div>
 
-            <div className='mt-3 my-1 flex px-2 items-center'>
-                <div className="font-bold text-xl">Resumen : </div>
-                <div className='font-semibold'>{documento.Resumen}</div>
+            <div className='grid gap-1'>
+              <div className='flex items-center gap-2'>
+              <FaAngleRight/>
+                <label className='text-xl font-bold'>Autor</label>
+              </div>
+                <p className='font-sans text-gray-500 ml-3'>{documento.nombres} {documento.apellidos}</p>
             </div>
-            <LinkVizualizacionDocumento id={Number(documento.id)}/>
+
+            <div className='grid gap-1'>
+              <div className='flex items-center gap-2'>
+              <FaAngleRight/>
+                <label className='text-xl font-bold'>Tipo de documento</label>
+              </div>
+                <p className='font-sans text-gray-500 ml-3'>{documento.tipo}</p>
+            </div>
+
+            <div className='grid gap-1'>
+              <div className='flex item-center'>
+                <FaAngleRight/>
+                <label className='text-xl font-bold'>Resumen</label>
+              </div>
+                <p className='font-sans text-gray-500 ml-3'>{documento.Resumen}</p>
+            </div>
+
+            <div className='flex justify-between'>
+              <LinkVizualizacionDocumento id={Number(documento.id)}/>
+
+              <button
+              onClick={handleClick}
+              className="w-fit p-2 bg-primario rounded-lg self-center font-semibold m-5"
+              >
+              Regresar a incio
+              </button>
+            </div>
+
         </div>
+    </main>
     );
 }
