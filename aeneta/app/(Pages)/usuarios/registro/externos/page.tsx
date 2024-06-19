@@ -48,9 +48,6 @@ export default function Page(){
     };
     return (
     <main>
-        <div className="bloque-titulo">
-            <h1 className='fuente-titulo'>Registrar nuevo director EXTERNO</h1>
-        </div>
         <form method="POST" onSubmit={handleSubmit} className="w-fit min-w-min flex flex-col justify-center align-center m-auto mt-2">
             <div className="contenedor-input">
                 <label htmlFor="nombres" className="text-right w-1/2">Nombre(s) del director:</label>

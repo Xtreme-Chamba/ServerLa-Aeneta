@@ -44,9 +44,6 @@ export default function Page({
 
   return (
     <div className="mx-auto">
-      <div className="bloque-titulo">
-        <h1 className="fuente-titulo">Busqueda de documentos</h1>
-      </div>
       <div className="w-fit mx-auto">
         <div className=" mt-4 flex items-center justify-between gap-2 md:mt-8">
           <Search placeholder="Buscar documentos academicos..." />

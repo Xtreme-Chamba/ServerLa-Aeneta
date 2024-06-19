@@ -45,9 +45,6 @@ export default function Page({ params }: { params: { id: string } }) {
 
     return (
     <main className=''>
-        <div className='bloque-titulo'>
-            <h1 className='fuente-titulo'>Revision del documento</h1>
-        </div>
         {revisionDocumento && 
         <div className="flex m-auto items-center flex-col border rounded-md text-center p-2 w-fit my-2 bg-secundario">
           <div>

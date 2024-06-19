@@ -10,7 +10,7 @@ export default function BarraNavegacion () {
     const palabraruta: { [key: string]: string } = {
       '/' : 'Busqueda de documento',
       '/documentos/registro' : 'Subir documento academico',
-      '/documento/{id}/metadato' : 'Metadatos del documento',
+      '/documento/{id}/metadatos' : 'Metadatos del documento',
       '/revisiones/documentos/busqueda' : 'Documentos sin revisar',
       '/revisiones/documentos/{id}/consultar' : 'Status de documento',
       '/revisiones/documentos/{id}/revisar' : 'Revision de documento academico',
@@ -29,13 +29,13 @@ export default function BarraNavegacion () {
         <h1 className="fuente-titulo">{palabraactual}</h1>
 
         <nav className="hidden md:flex gap-4">
-          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
+          <Link href="#" className="text-lg font-medium hover:underline" >
             Acerca de
           </Link>
-          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
+          <Link href="#" className="text-lg font-medium hover:underline" >
             Buscar 
           </Link>
-          <Link href="#" className="text-lg font-medium hover:underline">
+          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
             Iniciar sesion
           </Link>
         </nav>

@@ -58,9 +58,6 @@ export default function Page({ params }: { params: { id: number } }) {
 
     return (
     <main className=''>
-        <div className='bloque-titulo'>
-            <h1 className='fuente-titulo'>Revision del documento</h1>
-        </div>
         <CartaMetadatos id = {idDoc}/>
         <form method="POST" onSubmit={handleSubmit} className="w-fit min-w-min flex flex-col justify-center align-center m-auto mt-2 border rounded-lg p-2">
             <h2 className='my-1 font-medium text-xl'>Escriba aquí abajo su resultado</h2>
