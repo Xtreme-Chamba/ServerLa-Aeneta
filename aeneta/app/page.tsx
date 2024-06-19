@@ -43,23 +43,6 @@ export default function Home({
   
   return (
     <div className="flex flex-col min-h-dvh">
-      <header className="bg-primario px-4 lg:px-6 h-14 flex items-center justify-between">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <LuBookMarked  className="size-10"/>
-          <span className="text-2xl font-bold">Server la-Aeneta</span>
-        </Link>
-        <nav className="hidden md:flex gap-4">
-          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
-            Acerca de
-          </Link>
-          <Link href="#" className="text-lg font-medium hover:underline" prefetch={false}>
-            Buscar 
-          </Link>
-          <Link href="#" className="text-lg font-medium hover:underline">
-            Iniciar sesion
-          </Link>
-        </nav>
-      </header>
       <main className="flex-1 bg-fondo">
         <section className="text-texto py-8">
           <div className="flex flex-cols items-center justify-center px-4 py-10 md:px-6 ">
