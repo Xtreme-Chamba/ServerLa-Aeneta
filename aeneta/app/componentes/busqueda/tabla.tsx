@@ -57,7 +57,7 @@ export default async function Table({
   }
   
   return (
-    <div className="mt-6 rounded-md gap-2">
+    <div className="mt-6 rounded-md gap-2 ">
       <div className="inline-block min-w-full align-middle">
         <div className="rounded-lg bg-gray-50 p-2 flex flex-col gap-2">
           
