@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BarraNavegacion from "./componentes/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className ={inter.className + " bg-fondo"}  >
-        {/* Navbar */}
+        <BarraNavegacion />
         {children}
         {/*Footer */}
         </body>
