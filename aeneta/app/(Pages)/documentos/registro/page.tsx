@@ -57,9 +57,6 @@ export default function Page(){
 
     return (
     <main>
-        <div className="bloque-titulo">
-            <h1 className='fuente-titulo'>Subir documento academico</h1>
-        </div>
         <form method="POST" className="w-fit min-w-min flex flex-col justify-center align-center m-auto mt-2">
             <div className="contenedor-input">
                 <label htmlFor="titulo" className="text-right w-1/2">Titulo del documento:</label>
