@@ -52,7 +52,7 @@ export default function CartaMetadatos({ id }: { id: number }) {
             </div>
             <div className='mt-3 my-1 flex px-2 items-center'>
                 <div className="font-bold text-xl">Autor : </div>
-                <div className='font-semibold'>{documento.Nombres} {documento.Apellidos}</div>
+                <div className='font-semibold'>{documento.nombres} {documento.apellidos}</div>
             </div>
 
             <div className='mt-3 my-1 flex px-2 items-center'>
