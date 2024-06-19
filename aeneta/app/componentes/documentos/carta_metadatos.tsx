@@ -46,9 +46,6 @@ export default function CartaMetadatos({ id }: { id: number }) {
 
     return (
     <main className=''>
-        <div className='w-full text-center p-2 bg-primario mb-8'>
-            <h1 className='font-bold text-2xl'>Metadatos del documento</h1>
-        </div>
       <div className='w-full max-w-2xl border-2 border-black mx-auto rounded-2xl' key = {documento.id} >
             <h2 className='font-bold text-3xl text-center mt-2'>{documento.Titulo.toUpperCase()}</h2>
 

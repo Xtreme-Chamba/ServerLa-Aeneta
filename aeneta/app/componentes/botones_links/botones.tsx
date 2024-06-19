@@ -14,7 +14,7 @@ export function LinkMetadatos({ titulo, id }: { titulo: string, id: number }) {
 export function LinkRevision({ titulo, id }: { titulo: string, id: number }) {
     return (
       <Link
-        href={`/revisiones/documentos/busqueda/${id}/revision`} 
+        href={`/revisiones/documentos/${id}/revisar`} 
         className="flex items-center text-texto py-2 text-xl font-bold hover:text-primario"
       >
         <span className="hidden md:block">{titulo}</span>

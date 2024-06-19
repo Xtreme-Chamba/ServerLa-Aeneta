@@ -31,12 +31,8 @@ export default async function Table({
         });
         //una opción es: const urlencoded = new URLSearchParams({
         const data = await response.json();
-        const documentosFormateado= data.map((documento : {id: number, Titulo : string, Palabras_clave : string, anio: number, tipo : string, Nombres: string, Apellidos: string, revisado: Buffer}) => ({
-          ...documento,
-          revisado: Boolean(documento.revisado[0]) // Convertir el Buffer a un valor booleano
-        }));
         console.log(data);
-        setDocumentos(documentosFormateado);
+        setDocumentos(data);
       }
       fetchResultadosBusqueda();
       

@@ -132,6 +132,11 @@ export const postBusquedaNoRevisado = async (req, res) => {
   const {  numResultados, salto } = req.body;
   const result = await pool.query("call busqueda_no_revisado(?,?)", [
     numResultados, salto ]);
+  result[0][0].map((resultado) => {
+    resultado.revisado = Boolean(resultado.revisado[0]);
+    //no aplica revisión, por que aun no existe
+    resultado.revision = false ; //pero para no tener problemas en el fornt, dejemoslo default como falso
+  });
   res.json(result[0][0]);
   };
 
