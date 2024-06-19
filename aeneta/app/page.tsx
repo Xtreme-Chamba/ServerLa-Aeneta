@@ -47,14 +47,14 @@ export default function Home({
         <section className="text-texto py-8">
           <div className="flex flex-cols items-center justify-center px-4 py-10 md:px-6 ">
             <div className="space-y-4">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Busca Trabajos terminales, Tesis y de mas documentos academicos</h1>
+              <h1 className="text-3xl font-bold tracking-tighter text-5xl">Busca Trabajos terminales, Tesis y de mas documentos academicos</h1>
               <p className="text-gray-300 text-center md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Descubre una basta coleccion de documentos academicos del IPN que te ayudaran con tu investigación.
               </p>
               <div className="text-center">
                 <div className="flex flex-col items-center p-4 space-y-4">
                 <div className="w-fit mx-auto">
-                    <div className=" mt-4 flex items-center justify-between gap-2 md:mt-8">
+                    <div className=" mt-4 flex items-center justify-center gap-2 md:mt-8">
                       <Search placeholder="Buscar documentos academicos..." />
                     </div>
                     {  <Suspense key={termino + currentPage} /* fallback={<InvoicesTableSkeleton />}*/>

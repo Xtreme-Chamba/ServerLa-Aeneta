@@ -22,7 +22,8 @@ const config: Config = {
       "secundario": "#EA9C85",
       "resaltar": "#E39361",
       "aceptado" : "#1FF02E",
-      "rechazado" : "#E83E2D"
+      "rechazado" : "#E83E2D",
+      "pruebas" : "#FB607F"
     }
   },
   plugins: [],

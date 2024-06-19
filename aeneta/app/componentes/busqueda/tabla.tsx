@@ -57,37 +57,34 @@ export default async function Table({
   }
   
   return (
-    <div className="mt-6 rounded-md gap-2 ">
-      <div className="inline-block min-w-full align-middle">
-        <div className="rounded-lg bg-gray-50 p-2 flex flex-col gap-2">
-          
-            {documentos.map(( documento ) => (
-              <div
-                key={documento.id}
-                className="p-4 bg-secundario rounded-md"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <LinkMetadatos titulo={documento.Titulo} id={documento.id} />
-                    <p className="text-m">{documento.Nombres} {documento.Apellidos}</p>
-                  </div>
-                  {/*<InvoiceStatus status={invoice.status} />*/}
-                </div>
-                <div className="flex w-full items-center justify-between pt-4">
-                  <div>
-                    <p className="font-medium">
-                      Palabras clave: {documento.Palabras_clave}
-                    </p>
-                    <p>{documento.revisado}</p>
-                  </div>
-                </div>
+    <div className="mt-6 rounded-md gap-2">
+    <div className="inline-block min-w-full align-middle">
+      <div className="rounded-lg p-2 grid grid-cols-1 md:grid-cols-3 gap-x-8">
+        
+        {documentos.map((documento) => (
+          <div
+            key={documento.id}
+            className="p-4 border-solid border-4 border-primario w-80 h-44 rounded-md"
+          >
+            <div className="pb-4">
+              <div className="text-center">
+                <LinkMetadatos titulo={documento.Titulo} id={documento.id} />
+                <p className="text-m">{documento.Nombres} {documento.Apellidos}</p>
               </div>
-            ))}
-          
-
-          </div> 
-          
-      </div>
+              {/*<InvoiceStatus status={invoice.status} />*/}
+            </div>
+            <div className="text-left">
+              <p className="font-bold">Palabras clave:</p>
+                {documento.Palabras_clave.split(' ').map((palabra, index) => (
+                  <li key={index}>{palabra}</li>
+                ))}
+              <p>{documento.revisado}</p>
+            </div>
+          </div>
+        ))}
+      </div> 
     </div>
+  </div>
+  
   );
 }
