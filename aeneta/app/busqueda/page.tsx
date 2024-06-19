@@ -44,13 +44,8 @@ export default function Page({
 
   return (
     <div className="mx-auto">
-<<<<<<< Updated upstream:aeneta/app/busqueda/page.tsx
-      <div className="w-full text-center bg-primario p-2">
-        <h1 className={`font-bold text-2xl`}>Busqueda de documentos</h1>
-=======
       <div className="bloque-titulo">
         <h1 className="fuente-titulo">Revisión de documentos</h1>
->>>>>>> Stashed changes:aeneta/app/(Pages)/revisiones/documentos/busqueda/page.tsx
       </div>
       <div className="w-fit mx-auto">
         <div className=" mt-4 flex items-center justify-between gap-2 md:mt-8">
