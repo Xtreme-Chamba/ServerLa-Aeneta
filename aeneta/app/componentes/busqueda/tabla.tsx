@@ -69,7 +69,7 @@ export default async function Table({
             <div className="pb-4">
               <div className="text-center">
                 <LinkMetadatos titulo={documento.Titulo} id={documento.id} />
-                <p className="text-m">{documento.Nombres} {documento.Apellidos}</p>
+                <p className="text-m">{documento.nombres} {documento.apellidos}</p>
               </div>
               {/*<InvoiceStatus status={invoice.status} />*/}
             </div>
