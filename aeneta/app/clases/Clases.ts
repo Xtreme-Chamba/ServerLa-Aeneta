@@ -5,8 +5,8 @@ export type DocumentoLigero = {
     Palabras_clave : string, 
     anio: number, 
     tipo : "Tesis" | "Proyecto Investigación" | "Curricular (TT)" | "Propuesta",
-    Nombres: string, 
-    Apellidos: string, 
+    nombres: string, 
+    apellidos: string, 
     revisado: boolean,
     revision: boolean
 };

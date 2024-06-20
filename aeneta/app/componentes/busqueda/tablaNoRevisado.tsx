@@ -61,7 +61,7 @@ export default async function Table({
                 <div className="items-center text-center justify-between">
                     <LinkRevision titulo={documento.Titulo} id={documento.id}/>  
                     {/* cambiar a revision */}
-                    <p className="text-m mb-4">{documento.Nombres} {documento.Apellidos}</p>
+                    <p className="text-m mb-4">{documento.nombres} {documento.apellidos}</p>
                   {/*<InvoiceStatus status={invoice.status} />*/}
                 </div>
                 {/* <div className="border-t-4"></div> */}
