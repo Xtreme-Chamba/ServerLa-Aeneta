@@ -64,12 +64,12 @@ export default async function Table({
         {documentos.map((documento) => (
           <div
             key={documento.id}
-            className="p-4 border-solid border-4 border-primario w-80 h-44 rounded-md"
+            className="p-4 border-solid border-4 border-primario w-80 h-52 rounded-md"
           >
             <div className="pb-4">
               <div className="text-center">
                 <LinkMetadatos titulo={documento.Titulo} id={documento.id} />
-                <p className="text-m">{documento.nombres} {documento.apellidos}</p>
+                <p className="text-m text-left">{documento.nombres} {documento.apellidos}</p>
               </div>
               {/*<InvoiceStatus status={invoice.status} />*/}
             </div>
