@@ -1,20 +1,27 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { HiDocumentArrowUp } from "react-icons/hi2";
 import "react-toastify/dist/ReactToastify.css";
+import clsx from "clsx";
+import { UsuarioNombre } from "../clases/Clases";
 
 interface FormData {
   title: string;
   author: string;
-  director: string;
-  director2: string;
+  director: number;
+  director2: number;
+  directorExt: number;
   year: string;
-  ua: string;
-  type: string;
+  ua: number;
+  type: number;
   keyW: string;
   abstract: string;
-  file: File | null;
+  url: string;
+}
+
+interface Archivo{
+  file : File | null;
 }
 
 export default function Home() {
@@ -22,15 +29,50 @@ export default function Home() {
   const [info, setInfo] = useState<FormData>({
     title: "",
     author: "",
-    director: "",
-    director2: "",
+    director: 0,
+    director2: 0,
+    directorExt: 0,
     year: "",
-    ua: "",
-    type: "thesis",
+    ua: 0,
+    type: 0,
     keyW: "",
     abstract: "",
-    file: null,
+    url: "",
   });
+
+  const [archivo, setArchivo] = useState<Archivo>({
+    file : null
+  });
+
+  //lo normal son los internos
+  const [listaDirectores, setListaDirectores] = useState<UsuarioNombre[]>([]);
+  //ya luego vemos lo de los directores externos
+  const [listaDirectoresExternos, setListaDirectoresExt] = useState<UsuarioNombre[]>([]);
+
+  useEffect(() => {
+    try{
+      const fetchDirectores = async () => {
+          //propuesta de ruta para acceder a la lista de directores, es un GET
+          const response = await fetch("http://localhost:4000/users/directores/internos", 
+          { method : "GET"} );
+          const data = await response.json();
+          console.log(data);
+          setListaDirectores(data);
+      }
+      const fetchDirectoresExternos = async () => {
+          //propuesta de ruta para acceder a la lista de directores, es un GET
+          const response = await fetch("http://localhost:4000/users/directores/externos", 
+          { method : "GET"} );
+          const data = await response.json();
+          console.log(data);
+          setListaDirectoresExt(data);
+      }
+      fetchDirectores(); //se obtienen los docentes disponibles, para ser directores
+      fetchDirectoresExternos();
+    }catch(error){
+      console.log(error)
+    }
+  }, []);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -41,33 +83,53 @@ export default function Home() {
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
-    setInfo({ ...info, file: file });
+    setArchivo({ ...info, file: file });
   };
 
   const enviarDoc = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //lo que va a la base de datos
+    /*
     const formData = new FormData();
     formData.append("title", info.title);
     formData.append("author", info.author);
-    formData.append("director", info.director);
-    formData.append("director2", info.director2);
+    formData.append("director", String(info.director));
+    formData.append("director2", String(info.director2));
+    formData.append("directorExt", String(info.directorExt));
     formData.append("year", info.year);
-    formData.append("ua", info.ua);
-    formData.append("type", info.type);
+    formData.append("ua", String(info.ua));
+    formData.append("type", String(info.type));
     formData.append("keyW", info.keyW);
-    formData.append("abstract", info.abstract);
-    if (info.file) {
-      formData.append("file", info.file);
+    formData.append("abstract", info.abstract); */
+    //lo que va para subir el documento al backend
+    const fileData = new FormData();
+    if (archivo.file) {
+      fileData.append("file", archivo.file);
     }
-
+    console.log(archivo.file);
     try {
-      const response = await fetch("http://localhost:4000/documentos/subir", {
+      const response = await fetch("http://localhost:4000/documentos/subir/archivo", {
         method: "POST",
-        body: formData,
+        body: fileData
       });
       if (response.ok) {
         console.log("Documento subido");
-        toast.success("Documento subido exitosamente");
+        //obtenemos el nombre de como se guardó el documento, para terminar la petición de los metadatos
+        const data = await response.json();
+        console.log(data.url);
+        setInfo({ ...info, url: data.url });
+        //a subir los datos del documento
+        const responseData = await fetch("http://localhost:4000/documentos/subir/metadatos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(info)
+        });
+        if(responseData.ok){
+          toast.success("Documento subido exitosamente");
+        }
+        
       } else {
         console.log("Error al subir el documento");
         notify();
@@ -114,23 +176,29 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-4">
             <label>Director</label>
-            <input
-              placeholder="Nombre del director"
-              type="text"
-              className="border"
-              name="director"
-              value={info.director}
-              onChange={handleChange}
-            />
+            <select className="ml-1 text-left w-1/2 input" name="director" id="director" onChange={handleChange}>
+              <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
+              {listaDirectores.map( (director) => (
+              <option key={director.id} value={director.id} >{director.apellidos} {director.nombres}</option>
+              ))}
+            </select>
+            </div>
+          <div className="flex items-center gap-4">
+            <label>Director Externo</label>
+            <select className="ml-1 text-left w-1/2 input" name="directorExt" id="directorExt" onChange={handleChange}>
+              <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
+                
+              {listaDirectoresExternos.map( (director) => (
+              <option key={director.id} value={director.id} >{director.apellidos} {director.nombres}</option>
+              ))}
+            </select>
             <label>Director 2</label>
-            <input
-              placeholder="Nombre del director invitado"
-              type="text"
-              className="border"
-              name="director2"
-              value={info.director2}
-              onChange={handleChange}
-            />
+            <select className="ml-1 text-left w-1/2 input" name="director2" id="director2" onChange={handleChange}>
+              <option value="0" key={0} className="italic">Indique algún docente registrado como director</option>
+              {listaDirectores.map( (director) => (
+              <option key={director.id} value={director.id} >{director.apellidos} {director.nombres}</option>
+              ))}
+            </select>
           </div>
           <div className="flex items-center gap-4">
             <label>Año</label>
@@ -144,31 +212,52 @@ export default function Home() {
             />
           </div>
           <div className="flex items-center gap-4">
-            <label>Unidad Académica</label>
-            <input
-              placeholder="Unidad académica a la que pertenece"
-              type="text"
-              className="border w-96"
-              name="ua"
-              value={info.ua}
-              onChange={handleChange}
-            />
+            <label htmlFor="ua">Unidad Académica</label>
+            <select className="input ml-1 text-left" name="ua" id="ua" onChange={handleChange} >
+            <option value='0' className="italic">Selecciona su unidad academica</option>
+            <option value='1'>ENBA</option>
+            <option value='2'>ENCB</option>
+            <option value='3'>ENMyH</option>
+            <option value='4'>ESCA Unidad Santo Tomas</option>
+            <option value='5'>ESCA Unidad Tepepan</option>
+            <option value='6'>ESCOM</option>
+            <option value='7'>ESE</option>
+            <option value='8'>ESEO</option>
+            <option value='9'>ESFM</option>
+            <option value='10'>ESIME Unidad Zacatenco</option>
+            <option value='11'>ESIME Unidad Azcapotzalco</option>
+            <option value='12'>ESIME Unidad Culhuacan</option>
+            <option value='13'>ESIME UnidadTicoman</option>
+            <option value='14'>ESIQUIE</option>
+            <option value='15'>ESIT</option>h
+            <option value='16'>ESIA Unidad Tecamachalco</option>
+            <option value='17'>ESIA Unidad Ticoman</option>
+            <option value='18'>ESIA Unidad Zacatenco</option>
+            <option value='19'>ESM</option>
+            <option value='20'>EST</option>
+            <option value='21'>UPIIC Campus Coahuila</option>
+            <option value='22'>UPIBI</option>
+            <option value='23'>UPIIG Campus Guanajuato</option>
+            <option value='24'>UPIIZ Campus Zacateas</option>
+            <option value='25'>UPIIH Campus Hidalgo</option>
+            <option value='26'>UPIIP Campus Palenque</option>
+            <option value='27'>UPIIT Campus Tlaxcala</option>
+            <option value='28'>UPIICSA</option>
+            <option value='29'>UPIITA</option>
+            <option value='30'>UPIEM</option>
+            <option value='31'>CISC Unidad Santo Tomás</option>
+            <option value='32'>CISC Unidad Milpa Alta</option>
+        </select>
           </div>
 
           <div className="flex items-center gap-4">
             <label>Tipo de Documento</label>
-            <select
-              className="border"
-              name="type"
-              value={info.type}
-              onChange={handleChange}
-            >
-              <option value="thesis">Tesis</option>
-              <option value="article">Artículo</option>
-              <option value="book">Libro</option>
-              <option value="report">Informe</option>
-              <option value="other">Otro</option>
-            </select>
+            <select className="input ml-1 text-left" name="type" id="type" onChange={handleChange}>
+              <option value='0'className="italic">Selecciona el tipo de documento</option>
+              <option value='1'>Tesis</option>
+              <option value='2'>Proyecto de investigación</option>
+              <option value='3'>Documento curricular (TT)</option>
+          </select>
           </div>
 
           <div className="flex items-center gap-4">
@@ -220,4 +309,7 @@ export default function Home() {
       </form>
     </div>
   );
+  
 }
+
+

@@ -10,9 +10,6 @@ export default function Page(){
     //ya luego vemos lo de los directores externos
     const [listaDirectoresExternos, setListaDirectoresExt] = useState<UsuarioNombre[]>([]);
 
-    //const refBtnToogleInterno = useRef<HTMLButtonElement>(null);
-    //const refBtnToogleExterno = useRef<HTMLButtonElement>(null);
-
     useEffect(() => {
       try{
         const fetchDirectores = async () => {
@@ -35,14 +32,7 @@ export default function Page(){
       }catch(error){
         console.log(error)
       }
-    }, [])
-    /*
-    if(refBtnToogleInterno && listaDirectores)
-        refBtnToogleInterno?.addEventListener('click', toogleInterno);
-
-    if(refBtnToogleExterno && listaDirectoresExternos)
-        refBtnToogleExterno?.addEventListener('click', toogleExterno);
-*/
+    }, []);
     
     function toogleInterno() {
         const selectInternos = document.getElementById("container_director-2-int");
@@ -54,6 +44,7 @@ export default function Page(){
         const selectExternos = document.getElementById("container_director-2-ext");
         selectExternos?.classList.toggle("forzar-oculto");
     }
+
 
     return (
     <main>
