@@ -20,13 +20,13 @@ export const createUser = async (name, surname, email, password, typeUser) => {
 }
 
 export const getAllNombresDocentes = async (req, res) =>{
-    const result = await pool.query("select id_usuario, nombres, apellidos from usuario  WHERE id_tipo_usuario = ?",
+    const result = await pool.query("select id_usuario as id, nombres, apellidos from usuario  WHERE id_tipo_usuario = ?",
     [ TIPO_USUARIO_DOCENTE ]);
     res.json(result[0]);
   };
 
   export const getAllNombresDirectoresExternos = async (req, res) =>{
-    const result = await pool.query("select id_director_externo, nombres, apellidos from director_externo");
+    const result = await pool.query("select id_director_externo as id, nombres, apellidos from director_externo");
     res.json(result[0]);
   };
 
