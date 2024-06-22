@@ -26,7 +26,17 @@ Librerías: Utilizaremos librerías como SQLAlchemy, y React Router, React DOM, 
 
 
 # Equipo
-Líder del Proyecto: Reyna Melara Abarca
-Desarrolladores: Alexis, Angel,Armando, Rafael, Eduardo
-Diseñador UX/UI: Alexis
-Tester: Alexis, Angel,Armando, Rafael, Eduardo
+- Líder del Proyecto: Reyna Melara Abarca
+- Desarrolladores:
+  - Alexis
+  - Angel
+  - Armando
+  - Rafael
+  - Eduardo
+- Diseñador UX/UI: Alexis
+- Tester:
+  - Alexis
+  - Angel
+  - Armando
+  - Rafael
+  - Eduardo
