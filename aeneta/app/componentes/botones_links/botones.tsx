@@ -22,14 +22,15 @@ export function LinkRevision({ titulo, id }: { titulo: string, id: number }) {
     );
 }
 
-export function LinkVizualizacionDocumento ( { id } : { id: number }){
+export function LinkVizualizacionDocumento ( { url } : { url: string }){
+  const urlAbsoluta = `http://localhost:4000${url}`
   return (
     <Link
-      href={`/documento/${id}/documento`} //sugerido por mi
-    > 
-      <button className='btn'>
-        Ver documento
-      </button>
+      href={urlAbsoluta} passHref
+      target="_blank" rel="noopener noreferrer">
+        <button className='btn'>
+          Ver documento
+        </button>
     </Link>
   );
 }

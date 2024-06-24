@@ -90,7 +90,7 @@ export default function CartaMetadatos({ id }: { id: number }) {
             </div>
 
             <div className='flex justify-center py-4'>
-              <LinkVizualizacionDocumento id={Number(documento.id)}/>
+              <LinkVizualizacionDocumento url={documento.url}/>
 
             </div>
 

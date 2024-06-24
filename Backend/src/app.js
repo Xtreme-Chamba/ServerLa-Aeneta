@@ -1,4 +1,6 @@
 import express from "express";
+import path from "path"
+import { fileURLToPath } from 'url';
 import cors from "cors";
 import indexRoutes from "./routes/index.routes.js";
 import authRoutes from "./routes/auth.routes.js";
@@ -21,4 +23,8 @@ app.use(inventoryRoutes);
 app.use("/busqueda", rutasBusqueda);
 app.use("/documentos",rutasDocumentos);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const archivosPath = path.resolve(__dirname, '../uploads');
+app.use('/uploads', express.static(archivosPath));
 export default app;
