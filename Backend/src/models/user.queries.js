@@ -31,10 +31,19 @@ export const getAllNombresDocentes = async (req, res) =>{
   };
 
   export const postAddNewDirectorExterno = async (req, res) => {
-    console.log(req.body)
-    const {Nombres, apellidos, especialidad } = req.body;
+    const {nombres, apellidos, especialidad } = req.body;
+
+    const preresult = await pool.query("SELECT id_director_externo as id from director_externo where nombres = ? AND  apellidos= ?", [
+      nombres, apellidos
+    ]);
+    //si ya existe, pues no hace nada
+    if(preresult[0].id != undefined){
+      console.log("Ya existe este director");
+      res.status(400).json({ error: "El director externo a subir ya esta registrado" });
+      return;
+    }
     const result = await pool.query("INSERT INTO director_externo (nombres, apellidos, especialidad) VALUES (?,?,?)",
-      [ Nombres, apellidos, especialidad ] );
+      [ nombres, apellidos, especialidad ] );
     //al venir de procemdiento almacenado, por como lo trae la libería, hay que acceder hasta [0][0][0]
     console.log(result[0].affectedRows);
     res.json(result[0].affectedRows);
