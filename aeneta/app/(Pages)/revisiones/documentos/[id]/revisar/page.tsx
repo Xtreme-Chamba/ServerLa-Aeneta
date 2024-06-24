@@ -38,8 +38,7 @@ export default function Page({ params }: { params: { id: number } }) {
               let data = await response.json();
             }
             fetchRevisionDocumento();
-            
-            router.push("/documentos/registro");
+            router.push("/revisiones/documentos/busqueda");
 
           } catch (error) {
             console.log(error);

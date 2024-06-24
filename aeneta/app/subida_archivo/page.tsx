@@ -2,8 +2,8 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { HiDocumentArrowUp } from "react-icons/hi2";
+import { useRouter } from 'next/navigation';
 import "react-toastify/dist/ReactToastify.css";
-import clsx from "clsx";
 import { UsuarioNombre } from "../clases/Clases";
 
 interface FormData {
@@ -39,6 +39,8 @@ export default function Home() {
     abstract: "",
     url: "",
   });
+
+  const router = useRouter();
 
   const [archivo, setArchivo] = useState<Archivo>({
     file : null
@@ -128,6 +130,7 @@ export default function Home() {
         });
         if(responseData.ok){
           toast.success("Documento subido exitosamente");
+          router.push("/");
         }
         
       } else {

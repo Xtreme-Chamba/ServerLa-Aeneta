@@ -1,6 +1,5 @@
 'use client'
 import { UsuarioEspecialidad } from "@/app/clases/Clases";
-import { revalidatePath } from "next/cache";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -37,9 +36,7 @@ export default function Page(){
             });
             const data = await response.json();
             console.log(data); //para ver si fue very gud
-            
-                revalidatePath('/documentos/registro'); //recarga el contenido de la página, así que se agrega la información nueva
-                router.push("/documentos/registro");
+            router.push("/subida_archivo/");
             
         } catch (error) {
             console.log(error);

@@ -30,7 +30,7 @@ export const postAddRevisionDocumento = async (req, res) => {
   const { id_documento, estado_revision, notas_revision } = req.body;
   const result = await pool.query(
     "INSERT INTO revision_documento (id_documento, estado_revision, notas_revision) VALUES (?,?,?)",
-    [id_documento, estado_revision, notas_revision]
+    [id_documento, Boolean(estado_revision), notas_revision]
   );
 };
 
